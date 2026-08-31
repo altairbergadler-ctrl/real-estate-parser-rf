@@ -9,3 +9,19 @@ Desktop.ini
 *~
 .idea/
 .vscode/
+
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Reports and build artifacts
+.coverage
+coverage.xml
+htmlcov/
+build/
+dist/
+*.egg-info/
