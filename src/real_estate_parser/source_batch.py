@@ -1,7 +1,8 @@
-"""Neutral contracts for a structurally validated source batch."""
+"""Neutral contracts before and after source-specific adaptation."""
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from typing import Literal
 
@@ -96,6 +97,98 @@ class ValidatedSourceBatch:
     listings: tuple[ValidatedSourceListing, ...]
 
 
+_SOURCE_ID_PATTERN = re.compile(r"[a-z0-9][a-z0-9_-]{0,63}", flags=re.ASCII)
+_PUBLICATION_ID_PATTERN = re.compile(r"[A-Za-z0-9._:-]{1,128}", flags=re.ASCII)
+
+
+@dataclass(frozen=True, slots=True)
+class SourceId:
+    """Stable machine identifier assigned by a source adapter."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        if _SOURCE_ID_PATTERN.fullmatch(self.value) is None:
+            raise ValueError("invalid source id")
+
+
+@dataclass(frozen=True, slots=True)
+class PublicationId:
+    """Opaque source-scoped publication identifier."""
+
+    value: str
+
+    def __post_init__(self) -> None:
+        if _PUBLICATION_ID_PATTERN.fullmatch(self.value) is None:
+            raise ValueError("invalid publication id")
+
+
+@dataclass(frozen=True, slots=True)
+class PublicationRef:
+    """Application-wide reference to one source publication."""
+
+    source_id: SourceId
+    publication_id: PublicationId
+
+
+@dataclass(frozen=True, slots=True)
+class RawField:
+    """Unchanged source string and its structural input location."""
+
+    value: str
+    location: InputLocation
+
+
+@dataclass(frozen=True, slots=True)
+class MissingField:
+    """Absent optional neutral field and its expected input location."""
+
+    location: InputLocation
+
+
+@dataclass(frozen=True, slots=True)
+class SourcePublicationSnapshot:
+    """Neutral raw snapshot of one publication at one observation."""
+
+    reference: PublicationRef
+    source_url: RawField
+    observed_at: RawField
+    location_text: RawField | MissingField
+    price_amount: RawField | MissingField
+    currency: RawField | MissingField
+    total_area: RawField | MissingField
+    rooms: RawField | MissingField
+    input_location: InputLocation
+
+
+@dataclass(frozen=True, slots=True)
+class SourceBatch:
+    """Complete ordered sequence of neutral source snapshots."""
+
+    snapshots: tuple[SourcePublicationSnapshot, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class FixtureSourceAdaptationSuccess:
+    """Successful and complete fixture-source adaptation."""
+
+    batch: SourceBatch
+
+
+@dataclass(frozen=True, slots=True)
+class FixtureSourceAdaptationFailure:
+    """Atomic fixture-source adaptation failure without a partial batch."""
+
+    issues: tuple[ContractIssue, ...]
+
+    def __post_init__(self) -> None:
+        if not self.issues:
+            raise ValueError("a failed fixture-source adaptation must contain an issue")
+
+
+type FixtureSourceAdaptationResult = FixtureSourceAdaptationSuccess | FixtureSourceAdaptationFailure
+
+
 @dataclass(frozen=True, slots=True)
 class SourceBatchLoadSuccess:
     """Successful and complete boundary result."""
@@ -120,11 +213,21 @@ type SourceBatchLoadResult = SourceBatchLoadSuccess | SourceBatchLoadFailure
 __all__ = [
     "ContractIssue",
     "InputLocation",
+    "FixtureSourceAdaptationFailure",
+    "FixtureSourceAdaptationResult",
+    "FixtureSourceAdaptationSuccess",
+    "MissingField",
     "MissingSourceField",
     "OptionalValidatedSourceField",
+    "PublicationId",
+    "PublicationRef",
+    "RawField",
+    "SourceBatch",
     "SourceBatchLoadFailure",
     "SourceBatchLoadResult",
     "SourceBatchLoadSuccess",
+    "SourceId",
+    "SourcePublicationSnapshot",
     "ValidatedSourceBatch",
     "ValidatedSourceField",
     "ValidatedSourceListing",
