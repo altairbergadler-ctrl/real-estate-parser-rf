@@ -1,0 +1,16 @@
+{
+  "schema_version": "fixture-source-batch@1",
+  "source": "fixture_portal",
+  "listings": [
+    {
+      "publication_id": "duplicate-001",
+      "url": "https://listings.fixture.example/offers/duplicate-001",
+      "observed_at": "2026-04-01T00:00:00Z"
+    },
+    {
+      "publication_id": "duplicate-001",
+      "url": "https://listings.fixture.example/offers/duplicate-001",
+      "observed_at": "2026-04-02T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "search-criteria@1",
+  "criteria": {
+    "maximum_price": {
+      "amount_minor": 11000000,
+      "currency": "RUB"
+    },
+    "minimum_total_area": "40.00",
+    "allowed_rooms": [
+      2,
+      0
+    ]
+  }
+}

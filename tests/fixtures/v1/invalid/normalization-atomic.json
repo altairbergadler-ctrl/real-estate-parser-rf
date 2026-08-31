@@ -1,0 +1,24 @@
+{
+  "schema_version": "fixture-source-batch@1",
+  "source": "fixture_portal",
+  "listings": [
+    {
+      "publication_id": "atomic-valid-001",
+      "url": "https://listings.fixture.example/offers/atomic-valid-001",
+      "observed_at": "2026-03-01T00:00:00Z",
+      "price_major": "100000.00",
+      "currency": "RUB",
+      "total_area_sqm": "50.00",
+      "rooms": "2"
+    },
+    {
+      "publication_id": "atomic-invalid-002",
+      "url": "https://listings.fixture.example/offers/atomic-invalid-002",
+      "observed_at": "2026-03-01T00:00:01Z",
+      "price_major": "90000.00",
+      "currency": "RUB",
+      "total_area_sqm": "47.125",
+      "rooms": "1"
+    }
+  ]
+}
