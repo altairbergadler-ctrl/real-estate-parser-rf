@@ -1,0 +1,6 @@
+{
+  "schema_version": "search-criteria@1",
+  "criteria": {
+    "minimum_total_area": "60.00"
+  }
+}

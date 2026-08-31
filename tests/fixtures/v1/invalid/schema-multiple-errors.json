@@ -1,0 +1,17 @@
+{
+  "schema_version": "fixture-source-batch@1",
+  "source": "fixture_portal",
+  "listings": [
+    {
+      "publication_id": "schema-001",
+      "observed_at": "2026-02-01T00:00:00Z",
+      "rooms": null,
+      "extra_note": "fictional"
+    },
+    {
+      "publication_id": 42,
+      "url": "https://listings.fixture.example/offers/schema-002",
+      "observed_at": 17
+    }
+  ]
+}

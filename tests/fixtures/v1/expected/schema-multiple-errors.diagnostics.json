@@ -1,0 +1,31 @@
+{
+  "issues": [
+    {
+      "category": "INPUT_SCHEMA",
+      "code": "extra_field",
+      "location": "$.listings[0].extra_note"
+    },
+    {
+      "category": "INPUT_SCHEMA",
+      "code": "wrong_type",
+      "location": "$.listings[0].rooms"
+    },
+    {
+      "category": "INPUT_SCHEMA",
+      "code": "missing_field",
+      "location": "$.listings[0].url"
+    },
+    {
+      "category": "INPUT_SCHEMA",
+      "code": "wrong_type",
+      "location": "$.listings[1].observed_at"
+    },
+    {
+      "category": "INPUT_SCHEMA",
+      "code": "wrong_type",
+      "location": "$.listings[1].publication_id"
+    }
+  ],
+  "result_json_allowed": false,
+  "schema_version": "expected-diagnostics@1"
+}

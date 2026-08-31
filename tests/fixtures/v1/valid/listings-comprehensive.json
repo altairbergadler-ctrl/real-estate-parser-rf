@@ -1,0 +1,41 @@
+{
+  "schema_version": "fixture-source-batch@1",
+  "source": "fixture_portal",
+  "listings": [
+    {
+      "publication_id": "alpha-001",
+      "url": "https://listings.fixture.example/offers/alpha-001",
+      "observed_at": "2026-02-03T10:15:30.123456+03:00",
+      "location_text": "  Invented Quarter   Alpha  ",
+      "price_major": "110000.00",
+      "currency": "RUB",
+      "total_area_sqm": "52.50",
+      "rooms": "2"
+    },
+    {
+      "publication_id": "missing-003",
+      "url": "https://listings.fixture.example/offers/missing-003",
+      "observed_at": "2026-02-01T00:00:00Z"
+    },
+    {
+      "publication_id": "currency-004",
+      "url": "https://listings.fixture.example/offers/currency-004",
+      "observed_at": "2026-02-04T23:30:00.5-04:00",
+      "location_text": "Invented Quarter Currency",
+      "price_major": "120000.00",
+      "currency": "USD",
+      "total_area_sqm": "61.75",
+      "rooms": "1"
+    },
+    {
+      "publication_id": "studio-002",
+      "url": "https://listings.fixture.example/offers/studio-002",
+      "observed_at": "2026-02-02T08:00:00+05:30",
+      "location_text": "Invented Quarter Studio",
+      "price_major": "95000.25",
+      "currency": "RUB",
+      "total_area_sqm": "40",
+      "rooms": "studio"
+    }
+  ]
+}
