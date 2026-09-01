@@ -2,15 +2,16 @@
 
 ## Завершённая задача
 
-TASK-009 — атомарная нормализация полного `SourceBatch` и построение
-immutable `CollectionSnapshot` с уникальными `PublicationRef`, без partial
-listings или partial collection.
+TASK-010 — строгая внешняя граница `search-criteria@1` и канонический
+immutable `SearchCriteria`, без выполнения поиска.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-009 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/009-atomic-collection-snapshot` сохраняет
-  исходный атомарный содержательный коммит после безопасной интеграции.
+- TASK-010 завершена в короткоживущей ветке
+  `task/010-search-criteria-boundary`, созданной от точного SHA
+  `f760637ac0f0e456453bcaf9e9c2345c6b7bfe57`; ветка готова к отдельному merge
+  координатором, а `main` из task-worktree не изменялась.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -52,6 +53,13 @@ listings или partial collection.
 - Коллекция хранит полный tuple `NormalizedListing` в порядке входа;
   каждое повторное вхождение после первого даёт устойчивый
   `COLLECTION_CONFLICT/duplicate_publication_ref`.
+- Канонические frozen/slots `Money` и `SearchCriteria` с тремя необязательными
+  ограничениями; `allowed_rooms` хранится как непустой
+  `frozenset[RoomCount]` и не сохраняет входной порядок.
+- Публичная граница `load_search_criteria(Path)` для одного UTF-8
+  `search-criteria@1`: strict Pydantic structure/types, точные amount/area/rooms
+  правила, атомарный immutable success/failure и упорядоченные
+  `INPUT_SYNTAX`/`INPUT_SCHEMA` issues без пути и входных значений.
 - Прямые unit-тесты нормализатора без Pydantic/JSON/filesystem и ограниченные
   offline integration tests существующих loader/adapter со статическими
   fixtures, включая атомарный batch-to-collection переход.
@@ -61,8 +69,8 @@ listings или partial collection.
 ## Что намеренно не реализовано
 
 - Path-level orchestration loader/adapter/normalizer/collection.
-- Pydantic-модели критериев/результата, поиск, mapper, output validation и
-  сериализация.
+- Поиск, `SearchMatch`/`SearchResult`, mapper, Pydantic output validation и
+  JSON-сериализация.
 - Пользовательский CLI первого среза.
 - Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
@@ -73,10 +81,9 @@ listings или partial collection.
 
 ## Рекомендуемая следующая задача
 
-**TASK-010 — строгая граница `search-criteria@1` и канонический
-`SearchCriteria`.** Прочитать один локальный criteria JSON, строго
-валидировать Pydantic boundary и преобразовать его в neutral immutable
-criteria без выполнения поиска.
+**TASK-011 — чистая операция стандартного поиска.** Принять
+`CollectionSnapshot + SearchCriteria`, применить критерии конъюнктивно и вернуть
+детерминированный результат без output mapping и CLI.
 
 ## Открытые архитектурные вопросы
 

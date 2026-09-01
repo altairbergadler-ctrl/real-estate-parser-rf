@@ -35,5 +35,7 @@
 - [TASK-008](TASK-008.md) — детерминированная нормализация одного снимка; завершено.
 - [TASK-009](TASK-009.md) — атомарная нормализация пакета и immutable
   collection; завершено.
-- TASK-010 — строгая граница `search-criteria@1` и канонический
-  `SearchCriteria`; рекомендуется, но ещё не начато.
+- [TASK-010](TASK-010.md) — строгая граница `search-criteria@1` и
+  канонический `SearchCriteria`; завершено.
+- TASK-011 — чистая операция стандартного поиска по
+  `CollectionSnapshot + SearchCriteria` без output mapping и CLI; рекомендуется.
