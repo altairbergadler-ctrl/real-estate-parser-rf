@@ -2,7 +2,14 @@
 
 Модульное приложение для поиска и анализа объявлений о недвижимости по России. Проект задуман как независимое ядро с подключаемыми источниками, правилами нормализации, устранением дублей, поиском, доказательными сигналами и внешними интеграциями.
 
-Сейчас в репозитории находится документальный фундамент, проект первого локального сквозного среза, спецификация его предметной модели, полностью вымышленные JSON-фикстуры, минимальный устанавливаемый Python-каркас, строгая граница `fixture-source-batch@1`, чистый фиктивный source adapter, детерминированная нормализация, атомарная immutable-коллекция, строгая граница `search-criteria@1`, чистый детерминированный стандартный поиск, каноническое immutable-представление `search-result@1` и отдельная строгая output boundary для его атомарной сериализации в канонические UTF-8 JSON bytes. Path-level orchestration, пользовательский CLI, база данных, API, интерфейс, парсеры реальных площадок, ИИ и интеграции ещё не реализованы.
+Сейчас в репозитории завершён первый детерминированный локальный сквозной срез:
+строгая граница `fixture-source-batch@1`, чистый фиктивный source adapter,
+детерминированная нормализация, атомарная immutable-коллекция, строгая граница
+`search-criteria@1`, чистый стандартный поиск, каноническое immutable-представление
+`search-result@1`, строгая output boundary, path-level application flow и
+пользовательский CLI. Полностью вымышленные fixtures проходят весь поток до
+byte-exact JSON stdout. База данных, API, интерфейс, реальные площадки, ИИ и
+интеграции ещё не реализованы.
 
 ## С чего начать
 
@@ -41,6 +48,33 @@ uv run quality
 
 Команда только проверяет форматирование, линтинг, строгие типы, тесты и каталог
 fixtures v1. Она не исправляет файлы и не обновляет эталоны или lock-файл.
+
+## Запуск первого локального среза
+
+Команда принимает ровно один listings JSON и один criteria JSON:
+
+```text
+uv run real-estate-parser search --listings tests/fixtures/v1/valid/listings-comprehensive.json --criteria tests/fixtures/v1/criteria/all-three.json
+```
+
+Эквивалентный module entry point:
+
+```text
+uv run python -m real_estate_parser search --listings tests/fixtures/v1/valid/listings-comprehensive.json --criteria tests/fixtures/v1/criteria/all-three.json
+```
+
+При успехе stdout содержит только canonical UTF-8 JSON bytes, stderr пуст и
+exit code равен `0`. Content failure возвращает `1` и безопасные строки
+`CATEGORY/CODE/JSON_PATH` только в stderr. Usage и operational file/UTF-8
+failures возвращают `2` без traceback и раскрытия пути.
+
+## Application flow первого среза
+
+Публичная функция `run_local_search(listings_path, criteria_path)` независимо
+загружает оба входных документа и возвращает `LocalSearchSuccess(json_bytes)`
+либо `LocalSearchFailure(issues)`. Она не зависит от argparse, не выдаёт
+частичную коллекцию или частичные result bytes и использует только готовые
+границы TASK-006…TASK-013.
 
 ## Граничная загрузка пакета публикаций
 

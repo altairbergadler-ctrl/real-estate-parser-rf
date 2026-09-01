@@ -2,16 +2,16 @@
 
 ## Завершённая задача
 
-TASK-013 — строгая Pydantic output boundary для готового
-`SearchResultDocument` и атомарная детерминированная сериализация в
-канонические UTF-8 JSON bytes `search-result@1`, без CLI и path-level
-orchestration.
+TASK-014 — минимальный path-level application flow, тонкий `argparse` CLI и
+итоговые subprocess E2E первого детерминированного локального среза. Готовые
+границы TASK-006…TASK-013 связаны без новых предметных правил; stdout/stderr,
+exit codes, атомарность и existing golden bytes проверены снаружи процесса.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-013 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/013-output-boundary-json` сохраняет исходный
-  атомарный содержательный коммит после безопасной интеграции.
+- TASK-014 завершена в короткоживущей ветке `task/014-cli-e2e`, готова к
+  review/merge и ещё не слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -86,18 +86,35 @@ orchestration.
 - Каноническая serialization с UTF-8 без BOM, sorted compact keys,
   standard escaping, `allow_nan=False`, опущенными absent criteria, без
   `null` и с ровно одним завершающим LF; matches не сортируются.
+- Публичный application orchestrator
+  `run_local_search(listings_path, criteria_path)` с минимальными frozen/slots
+  `LocalSearchSuccess(json_bytes)` и `LocalSearchFailure(issues)`.
+- Orchestrator независимо загружает listings и criteria, объединяет content
+  issues глобальным ключом listings-before-criteria и прекращает поток до
+  адаптации при любой issue; downstream failures также не выдают частичную
+  коллекцию или result bytes.
+- File access и UTF-8 failures остаются role-aware operational exception, а не
+  `INPUT_*`; CLI сообщает только `listings`/`criteria` и безопасную общую
+  причину.
+- Console script `real-estate-parser` и module entry point
+  `python -m real_estate_parser` с единственным subcommand `search` и
+  обязательными `--listings`/`--criteria`.
+- CLI success пишет готовые canonical bytes через binary stdout без повторной
+  serialization; contract failures дают exit `1` и только
+  `CATEGORY/CODE/JSON_PATH` в stderr, usage/operational failures — exit `2`.
 - Прямые unit-тесты чистых границ, OUT-001, strict output validation,
-  детерминизма и immutable result-типов; offline fixture pipeline байтово
-  совпадает со всеми тремя existing search golden, а partial-area проверен
-  семантически.
+  детерминизма и immutable result-типов; application composition и subprocess
+  CLI E2E байтово совпадают со всеми тремя existing search golden, а
+  partial-area сохраняет семантику `currency-004`.
+- Негативные application/CLI E2E покрывают SYN-001, MULTI-001, NRM-006,
+  COL-001, отдельную criteria issue, глобальный порядок двух независимо
+  невалидных документов, usage, missing/non-UTF-8 input и повторный запуск.
 - Проект первого локального среза, точные внешние документы, негативная матрица,
   byte-exact golden-файлы и правила детерминизма TASK-002…TASK-004.
 
 ## Что намеренно не реализовано
 
-- Path-level orchestration loader/adapter/normalizer/collection/search/output
-  в едином потоке и запись output на диск.
-- Пользовательский CLI первого среза.
+- Запись output на диск.
 - Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
   площадки.
@@ -107,8 +124,10 @@ orchestration.
 
 ## Рекомендуемая следующая задача
 
-**TASK-014 — CLI и итоговый сквозной тест первого среза.** Связать
-готовые границы в path-level поток и проверить полный CLI-сценарий.
+Сначала выполнить review и отдельную безопасную интеграцию TASK-014 в `main`.
+После merge пользователь должен отдельно выбрать один крупный пункт этапа 3 и
+декомпозировать его в следующую малую задачу. TASK-015 заранее не определена;
+реализация качества данных автоматически не начинается.
 
 ## Открытые архитектурные вопросы
 

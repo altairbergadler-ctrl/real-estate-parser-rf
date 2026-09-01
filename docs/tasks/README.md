@@ -46,4 +46,6 @@
   детерминированная UTF-8 JSON serialization `SearchResultDocument` с
   byte-exact проверкой существующих golden, без CLI и path-level
   orchestration; завершено.
-- TASK-014 — CLI и итоговый сквозной тест первого среза; рекомендуется.
+- [TASK-014](TASK-014.md) — CLI, path-level application flow и итоговый
+  subprocess E2E первого локального среза; завершено в task-ветке, готово к
+  review/merge.
