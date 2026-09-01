@@ -43,6 +43,12 @@ from real_estate_parser.search_criteria import (
     SearchCriteriaLoadSuccess,
 )
 from real_estate_parser.search_criteria_boundary import load_search_criteria
+from real_estate_parser.search_result_boundary import (
+    SearchResultSerializationFailure,
+    SearchResultSerializationResult,
+    SearchResultSerializationSuccess,
+    serialize_search_result_document,
+)
 from real_estate_parser.search_result_mapping import (
     FieldOutcomeDocument,
     MissingDocument,
@@ -131,6 +137,9 @@ __all__ = [
     "SearchMatchDocument",
     "SearchResult",
     "SearchResultDocument",
+    "SearchResultSerializationFailure",
+    "SearchResultSerializationResult",
+    "SearchResultSerializationSuccess",
     "SourceBatch",
     "SourceBatchLoadFailure",
     "SourceBatchLoadResult",
@@ -155,4 +164,5 @@ __all__ = [
     "map_search_result",
     "normalize_fixture_snapshot",
     "search_collection",
+    "serialize_search_result_document",
 ]

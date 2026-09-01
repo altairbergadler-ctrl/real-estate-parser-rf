@@ -114,7 +114,7 @@ CLI adapter
 8. TASK-010 — добавить строгую границу `search-criteria@1` и канонический `SearchCriteria` без выполнения поиска. Завершено.
 9. TASK-011 — добавить чистую операцию стандартного поиска по `CollectionSnapshot + SearchCriteria` без output mapping и CLI. Завершено.
 10. TASK-012 — чисто отобразить `SearchResult` в immutable `SearchResultDocument` со всеми состояниями и provenance, без Pydantic output validation, JSON serialization и CLI. Завершено.
-11. TASK-013 — добавить строгую Pydantic output boundary и детерминированную UTF-8 JSON serialization с byte-exact проверкой существующих golden, без CLI и path-level orchestration. Рекомендуемый следующий шаг.
-12. Последующие небольшие задачи — по одному добавить CLI и итоговый сквозной тест.
+11. TASK-013 — добавить строгую Pydantic output boundary и детерминированную UTF-8 JSON serialization с byte-exact проверкой существующих golden, без CLI и path-level orchestration. Завершено.
+12. TASK-014 — связать готовые границы в CLI и добавить итоговый сквозной тест первого среза. Рекомендуемый следующий шаг.
 
 Завершение проектного пункта не начинает следующий автоматически; программная реализация по-прежнему требует отдельных задач.

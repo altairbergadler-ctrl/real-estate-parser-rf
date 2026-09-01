@@ -2,15 +2,17 @@
 
 ## Завершённая задача
 
-TASK-012 — чистое каноническое отображение готового `SearchResult` в immutable
-`SearchResultDocument` со всеми состояниями и provenance, без Pydantic output
-validation, JSON serialization и CLI.
+TASK-013 — строгая Pydantic output boundary для готового
+`SearchResultDocument` и атомарная детерминированная сериализация в
+канонические UTF-8 JSON bytes `search-result@1`, без CLI и path-level
+orchestration.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-012 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/012-search-result-mapping` сохраняет исходный
-  атомарный содержательный коммит после безопасной интеграции.
+- TASK-013 завершена в короткоживущей ветке
+  `task/013-output-boundary-json`, готова к отдельному review и merge
+  координатором, но ещё не слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -75,18 +77,27 @@ validation, JSON serialization и CLI.
   переводит wrapper-типы в строки/integer, форматирует площадь в м² с двумя
   знаками без float, сортирует только criteria rooms и сохраняет уже заданный
   tuple matches без повторного поиска или сортировки.
-- Прямые unit-тесты нормализатора без Pydantic/JSON/filesystem и ограниченные
-  offline integration tests существующих loader/adapter со статическими
-  fixtures, включая атомарный batch-to-collection переход и четыре сценария
-  structural output mapping без сериализации и golden comparison.
+- Отдельный модуль output boundary с приватными frozen strict
+  Pydantic-моделями точной формы `search-result@1`, `extra="forbid"` и
+  discriminated `present`/`missing`/`unsupported`.
+- Публичная операция `serialize_search_result_document(document)` и
+  frozen/slots `SearchResultSerializationSuccess`/`Failure`: либо полные
+  канонические JSON bytes, либо ровно одна
+  `OUTPUT_CONTRACT/invalid_result_document/$` issue без частичных bytes.
+- Каноническая serialization с UTF-8 без BOM, sorted compact keys,
+  standard escaping, `allow_nan=False`, опущенными absent criteria, без
+  `null` и с ровно одним завершающим LF; matches не сортируются.
+- Прямые unit-тесты чистых границ, OUT-001, strict output validation,
+  детерминизма и immutable result-типов; offline fixture pipeline байтово
+  совпадает со всеми тремя existing search golden, а partial-area проверен
+  семантически.
 - Проект первого локального среза, точные внешние документы, негативная матрица,
   byte-exact golden-файлы и правила детерминизма TASK-002…TASK-004.
 
 ## Что намеренно не реализовано
 
-- Path-level orchestration loader/adapter/normalizer/collection.
-- Pydantic output validation, преобразование document в JSON и детерминированная
-  UTF-8 byte serialization.
+- Path-level orchestration loader/adapter/normalizer/collection/search/output
+  в едином потоке и запись output на диск.
 - Пользовательский CLI первого среза.
 - Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
@@ -97,9 +108,8 @@ validation, JSON serialization и CLI.
 
 ## Рекомендуемая следующая задача
 
-**TASK-013 — строгая Pydantic output boundary и детерминированная UTF-8 JSON
-serialization `SearchResultDocument`.** Добавить byte-exact проверку
-существующих golden без CLI и path-level orchestration.
+**TASK-014 — CLI и итоговый сквозной тест первого среза.** Связать
+готовые границы в path-level поток и проверить полный CLI-сценарий.
 
 ## Открытые архитектурные вопросы
 
