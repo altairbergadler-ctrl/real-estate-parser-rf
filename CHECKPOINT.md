@@ -2,14 +2,16 @@
 
 ## Завершённая задача
 
-TASK-011 — чистая детерминированная операция стандартного поиска по готовым
-`CollectionSnapshot` и `SearchCriteria`, без output mapping и CLI.
+TASK-012 — чистое каноническое отображение готового `SearchResult` в immutable
+`SearchResultDocument` со всеми состояниями и provenance, без Pydantic output
+validation, JSON serialization и CLI.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-011 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/011-standard-search` сохраняет исходный атомарный
-  содержательный коммит после безопасной интеграции.
+- TASK-012 завершена в короткоживущей ветке
+  `task/012-search-result-mapping`, готовой к отдельной проверке и merge
+  координатором; `main` из task-worktree не изменялась.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -66,17 +68,26 @@ TASK-011 — чистая детерминированная операция с
   считает `Missing`/`Unsupported` обычным несовпадением только для заданного
   поля и возвращает полный канонически отсортированный результат, включая
   успешный пустой tuple.
+- Минимальное frozen/slots document tree `search-result@1`: отдельные
+  `PublicationRefDocument`, criteria/match/root, mandatory traced value,
+  `PresentDocument`, `MissingDocument`, `UnsupportedDocument` и два структурно
+  разных provenance-типа для provided и missing значений.
+- Чистая публичная операция `map_search_result(SearchResult)`, которая точно
+  переводит wrapper-типы в строки/integer, форматирует площадь в м² с двумя
+  знаками без float, сортирует только criteria rooms и сохраняет уже заданный
+  tuple matches без повторного поиска или сортировки.
 - Прямые unit-тесты нормализатора без Pydantic/JSON/filesystem и ограниченные
   offline integration tests существующих loader/adapter со статическими
-  fixtures, включая атомарный batch-to-collection переход.
+  fixtures, включая атомарный batch-to-collection переход и четыре сценария
+  structural output mapping без сериализации и golden comparison.
 - Проект первого локального среза, точные внешние документы, негативная матрица,
   byte-exact golden-файлы и правила детерминизма TASK-002…TASK-004.
 
 ## Что намеренно не реализовано
 
 - Path-level orchestration loader/adapter/normalizer/collection.
-- Mapper в immutable `SearchResultDocument`, Pydantic output validation и
-  JSON-сериализация.
+- Pydantic output validation, преобразование document в JSON и детерминированная
+  UTF-8 byte serialization.
 - Пользовательский CLI первого среза.
 - Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
@@ -87,9 +98,9 @@ TASK-011 — чистая детерминированная операция с
 
 ## Рекомендуемая следующая задача
 
-**TASK-012 — чистое каноническое отображение результата.** Преобразовать
-`SearchResult` в immutable `SearchResultDocument` со всеми состояниями и
-provenance, без Pydantic output validation, JSON serialization и CLI.
+**TASK-013 — строгая Pydantic output boundary и детерминированная UTF-8 JSON
+serialization `SearchResultDocument`.** Добавить byte-exact проверку
+существующих golden без CLI и path-level orchestration.
 
 ## Открытые архитектурные вопросы
 
