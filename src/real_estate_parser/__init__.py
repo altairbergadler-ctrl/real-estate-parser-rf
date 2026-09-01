@@ -34,6 +34,7 @@ from real_estate_parser.normalization import (
     ValueProvenance,
     normalize_fixture_snapshot,
 )
+from real_estate_parser.search import SearchMatch, SearchResult, search_collection
 from real_estate_parser.search_criteria import (
     Money,
     SearchCriteria,
@@ -103,6 +104,8 @@ __all__ = [
     "SearchCriteriaLoadFailure",
     "SearchCriteriaLoadResult",
     "SearchCriteriaLoadSuccess",
+    "SearchMatch",
+    "SearchResult",
     "SourceBatch",
     "SourceBatchLoadFailure",
     "SourceBatchLoadResult",
@@ -123,4 +126,5 @@ __all__ = [
     "load_fixture_source_batch",
     "load_search_criteria",
     "normalize_fixture_snapshot",
+    "search_collection",
 ]
