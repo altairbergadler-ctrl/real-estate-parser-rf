@@ -10,6 +10,7 @@ dependencies = [
 
 [project.scripts]
 quality = "real_estate_parser.quality:main"
+real-estate-parser = "real_estate_parser.cli:main"
 
 [dependency-groups]
 dev = [

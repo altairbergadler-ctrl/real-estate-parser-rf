@@ -1,5 +1,11 @@
 """Public library surface for the real estate parser."""
 
+from real_estate_parser.application import (
+    LocalSearchFailure,
+    LocalSearchResult,
+    LocalSearchSuccess,
+    run_local_search,
+)
 from real_estate_parser.collection import (
     CollectionBuildFailure,
     CollectionBuildResult,
@@ -105,6 +111,9 @@ __all__ = [
     "FixtureNormalizationRules",
     "InputLocation",
     "LocationText",
+    "LocalSearchFailure",
+    "LocalSearchResult",
+    "LocalSearchSuccess",
     "Missing",
     "MissingDocument",
     "MissingField",
@@ -163,6 +172,7 @@ __all__ = [
     "load_search_criteria",
     "map_search_result",
     "normalize_fixture_snapshot",
+    "run_local_search",
     "search_collection",
     "serialize_search_result_document",
 ]
