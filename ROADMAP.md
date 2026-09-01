@@ -27,7 +27,8 @@
 - **TASK-009 — атомарная нормализация пакета и immutable collection.** Нормализовать все snapshots полного `SourceBatch`, собрать ошибки и только при полном успехе построить `CollectionSnapshot` с уникальными `PublicationRef`, без поиска и output mapping. Завершено.
 - **TASK-010 — строгая граница `search-criteria@1` и канонический `SearchCriteria`.** Прочитать один локальный criteria JSON, строго валидировать Pydantic boundary и преобразовать его в neutral immutable criteria без выполнения поиска. Завершено.
 - **TASK-011 — чистая операция стандартного поиска.** Принять `CollectionSnapshot + SearchCriteria`, применить критерии конъюнктивно и вернуть детерминированный результат без output mapping и CLI. Завершено.
-- **TASK-012 — чистое каноническое отображение результата.** Преобразовать `SearchResult` в immutable `SearchResultDocument` со всеми состояниями и provenance, без Pydantic output validation, JSON serialization и CLI. Рекомендуемая следующая задача.
+- **TASK-012 — чистое каноническое отображение результата.** Преобразовать `SearchResult` в immutable `SearchResultDocument` со всеми состояниями и provenance, без Pydantic output validation, JSON serialization и CLI. Завершено.
+- **TASK-013 — строгая output boundary и детерминированная JSON-сериализация.** Проверить `SearchResultDocument` строгой Pydantic-моделью и сериализовать в детерминированный UTF-8 JSON с byte-exact проверкой существующих golden, без CLI и path-level orchestration. Рекомендуемая следующая задача.
 
 Каждый пункт перед началом оформляется отдельной задачей; реализация этапа не объединяется в одну крупную ветку.
 

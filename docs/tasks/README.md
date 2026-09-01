@@ -39,6 +39,9 @@
   канонический `SearchCriteria`; завершено.
 - [TASK-011](TASK-011.md) — чистая операция стандартного поиска по
   `CollectionSnapshot + SearchCriteria` без output mapping и CLI; завершено.
-- TASK-012 — чистое каноническое отображение `SearchResult` в immutable
-  `SearchResultDocument` без Pydantic output validation, JSON serialization и
-  CLI; рекомендуется.
+- [TASK-012](TASK-012.md) — чистое каноническое отображение `SearchResult` в
+  immutable `SearchResultDocument` без Pydantic output validation, JSON
+  serialization и CLI; завершено.
+- TASK-013 — строгая Pydantic output boundary и детерминированная UTF-8 JSON
+  serialization `SearchResultDocument` с byte-exact проверкой существующих
+  golden, без CLI и path-level orchestration; рекомендуется.
