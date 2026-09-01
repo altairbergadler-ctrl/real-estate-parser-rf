@@ -34,6 +34,14 @@ from real_estate_parser.normalization import (
     ValueProvenance,
     normalize_fixture_snapshot,
 )
+from real_estate_parser.search_criteria import (
+    Money,
+    SearchCriteria,
+    SearchCriteriaLoadFailure,
+    SearchCriteriaLoadResult,
+    SearchCriteriaLoadSuccess,
+)
+from real_estate_parser.search_criteria_boundary import load_search_criteria
 from real_estate_parser.source_batch import (
     ContractIssue,
     FixtureSourceAdaptationFailure,
@@ -78,6 +86,7 @@ __all__ = [
     "MissingField",
     "MissingProvenance",
     "MissingSourceField",
+    "Money",
     "MoneyAmount",
     "NormalizationFailure",
     "NormalizationResult",
@@ -90,6 +99,10 @@ __all__ = [
     "PublicationRef",
     "RawField",
     "RoomCount",
+    "SearchCriteria",
+    "SearchCriteriaLoadFailure",
+    "SearchCriteriaLoadResult",
+    "SearchCriteriaLoadSuccess",
     "SourceBatch",
     "SourceBatchLoadFailure",
     "SourceBatchLoadResult",
@@ -108,5 +121,6 @@ __all__ = [
     "adapt_fixture_source_batch",
     "build_fixture_collection",
     "load_fixture_source_batch",
+    "load_search_criteria",
     "normalize_fixture_snapshot",
 ]
