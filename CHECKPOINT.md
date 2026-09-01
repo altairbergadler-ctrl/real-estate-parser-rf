@@ -2,14 +2,15 @@
 
 ## Завершённая задача
 
-TASK-010 — строгая внешняя граница `search-criteria@1` и канонический
-immutable `SearchCriteria`, без выполнения поиска.
+TASK-011 — чистая детерминированная операция стандартного поиска по готовым
+`CollectionSnapshot` и `SearchCriteria`, без output mapping и CLI.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-010 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/010-search-criteria-boundary` сохраняет исходный
-  атомарный содержательный коммит после безопасной интеграции.
+- TASK-011 завершена в короткоживущей ветке `task/011-standard-search` и
+  подготовлена для отдельной проверки и merge координатором; `main` из
+  task-worktree не изменялась.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -58,6 +59,14 @@ immutable `SearchCriteria`, без выполнения поиска.
   `search-criteria@1`: strict Pydantic structure/types, точные amount/area/rooms
   правила, атомарный immutable success/failure и упорядоченные
   `INPUT_SYNTAX`/`INPUT_SCHEMA` issues без пути и входных значений.
+- Frozen/slots `SearchMatch` и `SearchResult`, где совпадение ссылается на
+  исходный `NormalizedListing`, а результат хранит использованный immutable
+  `SearchCriteria` и tuple совпадений.
+- Чистая публичная операция `search_collection(CollectionSnapshot,
+  SearchCriteria)`, которая конъюнктивно применяет три стандартных критерия,
+  считает `Missing`/`Unsupported` обычным несовпадением только для заданного
+  поля и возвращает полный канонически отсортированный результат, включая
+  успешный пустой tuple.
 - Прямые unit-тесты нормализатора без Pydantic/JSON/filesystem и ограниченные
   offline integration tests существующих loader/adapter со статическими
   fixtures, включая атомарный batch-to-collection переход.
@@ -67,7 +76,7 @@ immutable `SearchCriteria`, без выполнения поиска.
 ## Что намеренно не реализовано
 
 - Path-level orchestration loader/adapter/normalizer/collection.
-- Поиск, `SearchMatch`/`SearchResult`, mapper, Pydantic output validation и
+- Mapper в immutable `SearchResultDocument`, Pydantic output validation и
   JSON-сериализация.
 - Пользовательский CLI первого среза.
 - Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
@@ -79,9 +88,9 @@ immutable `SearchCriteria`, без выполнения поиска.
 
 ## Рекомендуемая следующая задача
 
-**TASK-011 — чистая операция стандартного поиска.** Принять
-`CollectionSnapshot + SearchCriteria`, применить критерии конъюнктивно и вернуть
-детерминированный результат без output mapping и CLI.
+**TASK-012 — чистое каноническое отображение результата.** Преобразовать
+`SearchResult` в immutable `SearchResultDocument` со всеми состояниями и
+provenance, без Pydantic output validation, JSON serialization и CLI.
 
 ## Открытые архитектурные вопросы
 

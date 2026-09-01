@@ -37,5 +37,8 @@
   collection; завершено.
 - [TASK-010](TASK-010.md) — строгая граница `search-criteria@1` и
   канонический `SearchCriteria`; завершено.
-- TASK-011 — чистая операция стандартного поиска по
-  `CollectionSnapshot + SearchCriteria` без output mapping и CLI; рекомендуется.
+- [TASK-011](TASK-011.md) — чистая операция стандартного поиска по
+  `CollectionSnapshot + SearchCriteria` без output mapping и CLI; завершено.
+- TASK-012 — чистое каноническое отображение `SearchResult` в immutable
+  `SearchResultDocument` без Pydantic output validation, JSON serialization и
+  CLI; рекомендуется.
