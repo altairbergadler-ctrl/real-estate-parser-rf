@@ -42,6 +42,8 @@
 - [TASK-012](TASK-012.md) — чистое каноническое отображение `SearchResult` в
   immutable `SearchResultDocument` без Pydantic output validation, JSON
   serialization и CLI; завершено.
-- TASK-013 — строгая Pydantic output boundary и детерминированная UTF-8 JSON
-  serialization `SearchResultDocument` с byte-exact проверкой существующих
-  golden, без CLI и path-level orchestration; рекомендуется.
+- [TASK-013](TASK-013.md) — строгая Pydantic output boundary и
+  детерминированная UTF-8 JSON serialization `SearchResultDocument` с
+  byte-exact проверкой существующих golden, без CLI и path-level
+  orchestration; завершено.
+- TASK-014 — CLI и итоговый сквозной тест первого среза; рекомендуется.

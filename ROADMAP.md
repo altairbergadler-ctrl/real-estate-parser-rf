@@ -28,7 +28,8 @@
 - **TASK-010 — строгая граница `search-criteria@1` и канонический `SearchCriteria`.** Прочитать один локальный criteria JSON, строго валидировать Pydantic boundary и преобразовать его в neutral immutable criteria без выполнения поиска. Завершено.
 - **TASK-011 — чистая операция стандартного поиска.** Принять `CollectionSnapshot + SearchCriteria`, применить критерии конъюнктивно и вернуть детерминированный результат без output mapping и CLI. Завершено.
 - **TASK-012 — чистое каноническое отображение результата.** Преобразовать `SearchResult` в immutable `SearchResultDocument` со всеми состояниями и provenance, без Pydantic output validation, JSON serialization и CLI. Завершено.
-- **TASK-013 — строгая output boundary и детерминированная JSON-сериализация.** Проверить `SearchResultDocument` строгой Pydantic-моделью и сериализовать в детерминированный UTF-8 JSON с byte-exact проверкой существующих golden, без CLI и path-level orchestration. Рекомендуемая следующая задача.
+- **TASK-013 — строгая output boundary и детерминированная JSON-сериализация.** Проверить `SearchResultDocument` строгой Pydantic-моделью и сериализовать в детерминированный UTF-8 JSON с byte-exact проверкой существующих golden, без CLI и path-level orchestration. Завершено.
+- **TASK-014 — CLI и итоговый сквозной тест первого среза.** Связать уже готовые границы в один path-level поток, добавить пользовательскую команду и проверить stdout/stderr, exit codes, атомарность и golden bytes. Рекомендуемый следующий шаг; в TASK-013 не реализуется.
 
 Каждый пункт перед началом оформляется отдельной задачей; реализация этапа не объединяется в одну крупную ветку.
 
