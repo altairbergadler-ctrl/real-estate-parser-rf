@@ -2,15 +2,18 @@
 
 ## Завершённая задача
 
-TASK-008 — детерминированная нормализация одного
-`SourcePublicationSnapshot` в полный immutable `NormalizedListing` либо
-упорядоченные ошибки `NORMALIZATION` без partial listing.
+TASK-009 — атомарная нормализация полного `SourceBatch` и построение
+immutable `CollectionSnapshot` с уникальными `PublicationRef`, без partial
+listings или partial collection.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-008 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/008-single-snapshot-normalization` сохраняет
-  исходный атомарный содержательный коммит после безопасной интеграции.
+- TASK-001…TASK-008 слиты в `main` отдельными merge-комитами.
+- TASK-009 завершена одним атомарным содержательным коммитом в
+  чистой ветке `task/009-atomic-collection-snapshot`, готовой к отдельному
+  merge-коммиту.
+- Merge не выполнялся из назначенного worktree: `main` checkout’нута в
+  другом worktree, а границы задачи запрещают его изменять.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -43,17 +46,24 @@ TASK-008 — детерминированная нормализация одн�
 - Чистая публичная операция `normalize_fixture_snapshot(snapshot, rules)` для
   одного snapshot: строгий RFC 3339 → UTC, Unicode whitespace, точные деньги,
   валюта, площадь и комнаты, полное происхождение и атомарный failure.
+- Frozen/slots `CollectionSnapshot`, `CollectionBuildSuccess`/
+  `CollectionBuildFailure` и чистая операция
+  `build_fixture_collection(SourceBatch, rules)`.
+- Пакетная операция обходит все snapshots, глобально сортирует
+  independently provable `NORMALIZATION` issues и только после полного
+  успеха проверяет точную уникальность `PublicationRef`.
+- Коллекция хранит полный tuple `NormalizedListing` в порядке входа;
+  каждое повторное вхождение после первого даёт устойчивый
+  `COLLECTION_CONFLICT/duplicate_publication_ref`.
 - Прямые unit-тесты нормализатора без Pydantic/JSON/filesystem и ограниченные
   offline integration tests существующих loader/adapter со статическими
-  fixtures без пакетного normalizer.
+  fixtures, включая атомарный batch-to-collection переход.
 - Проект первого локального среза, точные внешние документы, негативная матрица,
   byte-exact golden-файлы и правила детерминизма TASK-002…TASK-004.
 
 ## Что намеренно не реализовано
 
-- Нормализация полного `SourceBatch` и orchestration loader/adapter/normalizer.
-- `CollectionSnapshot`, пакетная атомарность, duplicate conflict и проверка
-  уникальности `PublicationRef`.
+- Path-level orchestration loader/adapter/normalizer/collection.
 - Pydantic-модели критериев/результата, поиск, mapper, output validation и
   сериализация.
 - Пользовательский CLI первого среза.
@@ -66,12 +76,10 @@ TASK-008 — детерминированная нормализация одн�
 
 ## Рекомендуемая следующая задача
 
-**TASK-009 — атомарная нормализация пакета и immutable collection.** Принять
-полный `SourceBatch`, нормализовать все snapshots, собрать все независимо
-доказуемые ошибки и только при полном успехе построить immutable
-`CollectionSnapshot` с проверкой уникальности `PublicationRef`. Не добавлять
-criteria, search, output mapping, serialization, пользовательский CLI или
-реальные источники.
+**TASK-010 — строгая граница `search-criteria@1` и канонический
+`SearchCriteria`.** Прочитать один локальный criteria JSON, строго
+валидировать Pydantic boundary и преобразовать его в neutral immutable
+criteria без выполнения поиска.
 
 ## Открытые архитектурные вопросы
 
