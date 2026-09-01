@@ -1,5 +1,12 @@
 """Public library surface for the real estate parser."""
 
+from real_estate_parser.collection import (
+    CollectionBuildFailure,
+    CollectionBuildResult,
+    CollectionBuildSuccess,
+    CollectionSnapshot,
+    build_fixture_collection,
+)
 from real_estate_parser.fixture_source_adapter import adapt_fixture_source_batch
 from real_estate_parser.fixture_source_batch import load_fixture_source_batch
 from real_estate_parser.normalization import (
@@ -53,6 +60,10 @@ __version__ = "0.1.0"
 
 __all__ = [
     "Area",
+    "CollectionBuildFailure",
+    "CollectionBuildResult",
+    "CollectionBuildSuccess",
+    "CollectionSnapshot",
     "ContractIssue",
     "Currency",
     "FIXTURE_NORMALIZATION_RULES_V1",
@@ -95,6 +106,7 @@ __all__ = [
     "ValueProvenance",
     "__version__",
     "adapt_fixture_source_batch",
+    "build_fixture_collection",
     "load_fixture_source_batch",
     "normalize_fixture_snapshot",
 ]
