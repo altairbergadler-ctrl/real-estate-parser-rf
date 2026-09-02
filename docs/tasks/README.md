@@ -50,4 +50,7 @@
   subprocess E2E первого локального среза; завершено и слито в `main`.
 - [TASK-015](TASK-015.md) — доказательная модель повторных observation,
   изменений, подтверждённой недоступности и reappearance одной
+  `PublicationRef`; завершено и слито в `main`.
+- [TASK-016](TASK-016.md) — neutral frozen/slots observation/change types и
+  чистое детерминированное сравнение/добавление одного observation одной
   `PublicationRef`; завершено в task-ветке, готово к review/merge.
