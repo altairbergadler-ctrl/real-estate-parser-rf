@@ -213,6 +213,17 @@ indexes и metrics — rebuildable projections. Application consumers владе
 equal identity/different content никогда не overwrite, а multi-history,
 generation/assessment и review units фиксируются all-or-nothing.
 
+TASK-027 реализует этот application boundary отдельным neutral
+contracts-модулем и отдельным in-memory infrastructure adapter. Пять
+consumer-owned Protocol ports принимают только exact typed requests и
+возвращают frozen/slots outcomes; generic repository, backend session и
+transaction API отсутствуют. Reference adapter выдаёт opaque revisions
+детерминированным внутренним счётчиком без clock/UUID/random/hash,
+проверяет exact replay до expected revision и делает каждую
+назначенную unit видимой только целиком. Он не вызывает pure
+generation/assessment/review/quality operations и не определяет
+production orchestration или durable technology.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.

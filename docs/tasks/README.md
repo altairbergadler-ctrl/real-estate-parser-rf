@@ -96,5 +96,9 @@
 - [TASK-026](TASK-026.md) — design-only hybrid authority/retention model,
   consumer-owned persistence ports, exact replay, optimistic revisions,
   atomic multi-history/duplicate/review units и safe recompute без выбора
-  storage technology или implementation; завершено в task-ветке, не слито в
+  storage technology или implementation; завершено и слито в `main`.
+- [TASK-027](TASK-027.md) — neutral frozen/slots persistence contracts, пять
+  consumer-owned Protocol ports и deterministic in-memory reference adapter с
+  replay-before-revision, optimistic expectations и atomic commits без durable
+  technology, I/O и production executor; завершено в task-ветке, не слито в
   `main`.

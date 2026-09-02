@@ -2,17 +2,19 @@
 
 ## Завершённая задача
 
-TASK-026 — design consumer-owned persistence и replay boundary. ADR 0010
-принимает hybrid model: immutable observations и supplied human assertions
-authoritative в exact context, committed deterministic outputs сохраняются как
-version-bound audit artifacts, а current/index/quality views остаются
-rebuildable projections. Пять узких consumer-owned ports задают structural
-identity, exact replay, optimistic expected revisions, typed conflicts и
-all-or-nothing units без выбора storage technology или implementation.
+TASK-027 — neutral persistence ports и deterministic in-memory reference
+adapter. Пять consumer-owned runtime-checkable Protocol contracts реализуют
+ADR 0010 через exact typed reads, replay-before-revision, explicit optimistic
+expectations, immutable audit units и port-specific atomic failures. Reference
+adapter выдаёт opaque deterministic revisions, не выполняет pure
+operations за consumer и не вводит durable technology или production
+executor.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-026 слиты в `main` отдельными merge-коммитами.
+- TASK-027 завершена в `task/027-persistence-ports-in-memory` и не
+  слита в `main` по явной границе задачи.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
@@ -400,12 +402,44 @@ all-or-nothing units без выбора storage technology или implementatio
   Ruff lint, strict mypy (`41 source files`), основной pytest (`603 passed`),
   fixture catalog `44 passed`, frozen sync/lock, `git diff --check`, 59
   relative Markdown links и changed-path audit.
+- Common frozen/slots persistence primitives: adapter-issued opaque
+  `PersistenceRevision`, explicit `ExpectAbsent | ExpectExact`,
+  `CommitDisposition`, typed operational failures и канонические
+  port-specific structural conflicts.
+- Пять публичных consumer-owned Protocol ports без generic repository:
+  histories/observations, generation artifacts, assessment batch/pair/link,
+  manual-review chain/head и quality audit inputs.
+- Deterministic `InMemoryPublicationPersistence`, который реализует все
+  пять ports, выдаёт revisions без clock/UUID/random/hash/domain
+  timestamp и сохраняет их при replay.
+- Exact reads не выбирают newest across policies и не подменяют
+  absence пустым domain object.
+- Observation commit атомарно фиксирует все affected histories,
+  outcomes/changes и immutable receipt; stale stream отклоняет всю
+  unit.
+- Generation сохраняется только complete; assessment commit атомарно
+  связывает exact generation, full batch и все pair assessments без
+  partial prefix.
+- Assessment supersession сохраняется отдельным immutable link;
+  manual review атомарно фиксирует revision, assessment/finding
+  binding, supersedes edge и head без winner при fork.
+- Quality audit хранит supplied audit identity/revision, full control set и
+  optional exact generation; metrics/coverage не становятся authoritative
+  state.
+- 15 fully fictional direct tests покрывают public constructors/ports,
+  first writes, exact retry, content/stale conflicts, competing writers, atomic
+  rollback, exact reads, manual fork, quality revision, supersession,
+  immutability и forbidden surface.
+- Финальный TASK-027 quality gate успешен: targeted `15 passed`, Ruff
+  format-check (`99 files`), Ruff lint, strict mypy (`44 source files`),
+  основной pytest `618 passed`, fixture catalog `44 passed`, frozen sync/lock,
+  `git diff --check`, relative Markdown links и changed-path/public-surface
+  audits.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Python persistence port contracts, in-memory/durable adapter и expected
-  revision implementation.
+- Durable persistence adapter и storage schema/technology.
 - SQL/JSON/filesystem schema, ORM, migrations, transaction manager, cache,
   queue, scheduler, distributed lock и выбор storage technology.
 - Side-effecting production executor/orchestrator, ingestion run и retry/backoff
@@ -420,10 +454,13 @@ all-or-nothing units без выбора storage technology или implementatio
 
 ## Рекомендуемая следующая задача
 
-TASK-027 — реализовать neutral Python port contracts и deterministic in-memory
-reference adapter по ADR 0010 с exact replay, optimistic revision и atomic
-failures, без SQL/JSON/filesystem/CLI/real data и без side-effecting production
-executor.
+TASK-028 — выбрать первый реальный источник и принять
+legal/ethical/technical контракт ограниченного read-only пилота:
+разрешённый способ доступа, rate limits, минимальный набор данных,
+блокировки, персональные данные, stop conditions и доказательства соблюдения
+правил. Без scraper/source adapter и без сбора real data. Задача не
+начата и требует отдельного подтверждения пользователем источника и
+использования сети.
 
 ## Открытые архитектурные вопросы
 
@@ -440,7 +477,7 @@ executor.
   нескольких исходных полей?
 - Какой bucket pair limit оправдают будущие fully fictional benchmarks и
   reviewed blocking coverage без превращения числа в универсальную константу?
-- Какой отдельный side-effecting execution contract потребуется после TASK-027
+- Какой отдельный side-effecting execution contract потребуется
   и какие operational retry/backoff/observability правила не должны проникать
   в consumer-owned persistence ports?
 - Потребуется ли legal/audit raw source capture, и какие retention/deletion
