@@ -141,14 +141,31 @@ recall — всей population. Typed unavailable reasons сохраняют н�
 labels без нуля или исключения. Модуль не пересчитывает assessment и не вводит
 candidate generation, storage, sampling, physical property, merge или cluster.
 
+TASK-021 принимает design-only bounded boundary перед вызовом assessment
+TASK-019 в
+[ADR 0008](docs/decisions/0008-duplicate-candidate-generation.md) и
+[design-спецификации](docs/design/PUBLICATION-DUPLICATE-CANDIDATES.md).
+Отдельная `publication-duplicate-candidate-policy@1` проецирует каждый current
+`AvailableObservation` максимум в два exact typed keys, группирует только
+совпавшие keys и union/deduplicates materialized pairs. Caller-supplied positive
+limit применяется к exact prospective count каждого bucket; oversized bucket
+целиком остаётся immutable outcome без partial first-N. Candidate identity
+сохраняет canonical pair и exact observation keys, но blocking match не
+становится duplicate evidence. При фиксированном limit pair attempts
+ограничены `2NL`, global quadratic scan и fallback отсутствуют. Отдельная
+blocking coverage использует только eligible confirmed cases supplied fully
+fictional control set и не заявляет production recall.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
 - **Нормализация** преобразует сырые значения в каноническое представление, не скрывая исходные данные и неопределённость.
 - **Устранение дублей** pairwise оценивает две независимые публикации как
-  возможный relationship, хранит симметричные положительные и отрицательные
-  основания и отдельную ручную проверку, не уничтожая identity, provenance или
-  histories исходных объявлений и не создавая transitive cluster.
+  возможный relationship: bounded exact blocking сначала формирует объяснимые
+  candidates, а отдельная assessment хранит симметричные положительные и
+  отрицательные основания и отдельную ручную проверку. Ни один шаг не
+  уничтожает identity, provenance или histories исходных объявлений и не
+  создаёт transitive cluster.
 - **Сигналы** вычисляют доказательные стандартные и нестандартные признаки, уверенность и необходимость ручной проверки. ИИ в будущем может быть одной из необязательных реализаций внутри этой границы.
 - **Поиск** применяет критерии к нормализованным объявлениям и сигналам, не зная, откуда и каким интерфейсом пришёл запрос.
 - **Уведомления** определяют события и предпочтения доставки, но не привязывают ядро к конкретному каналу.

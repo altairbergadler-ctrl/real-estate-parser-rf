@@ -2,19 +2,22 @@
 
 ## Завершённая задача
 
-TASK-020 — neutral reviewed control set и pure duplicate-policy quality
-metrics. Immutable one-policy population атомарно связывает unique canonical
-pairs, exact assessment/not-assessed results и independently supplied
-pair-bound labels. Pure evaluation сохраняет categorical counts, exact
-coverage и population review load, а precision/recall выдаёт только при
-достаточных labels с явными denominators; human label не становится physical
-property или безусловной истиной.
+TASK-021 — design-only bounded duplicate candidate generation. Отдельная
+`publication-duplicate-candidate-policy@1` использует ровно два exact blocking
+passes, whole-bucket oversized outcome и stable union без global all-pairs
+fallback. Candidate identity связывает canonical pair и exact current
+observation keys; blocking coverage измеряет только eligible confirmed cases
+supplied fully fictional control population и сохраняет отдельные
+PairNotAssessed/outside/stale counts.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-020 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/020-reviewed-control-metrics` сохраняет исходный
   атомарный implementation commit после безопасной интеграции.
+- TASK-021 завершена только в `task/021-duplicate-candidate-design` от точного
+  стартового SHA `17f0edf1a89aaffc687f24b3023a7617fcaa7b53`, готова к review и
+  намеренно не слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -246,13 +249,31 @@ property или безусловной истиной.
 - 24 fully fictional unit-теста покрывают mixed/all assessed/all not-assessed,
   same/cross-source, permutations, bindings/conflicts, immutability, exact
   ratios, label sufficiency/independence и отсутствие I/O/merge/cluster API.
+- ADR 0008 и design-спецификация отдельной
+  `publication-duplicate-candidate-policy@1` с двумя exact rules
+  `total_area + rooms` и `total_area + location_text`, совпадающими с
+  candidate gate ADR 0006.
+- Непустой canonical current available input contract с one-observation per
+  `PublicationRef`, exact keys и atomic failures для unavailable, duplicate
+  reference и same-key conflicting content.
+- Typed exact blocking keys без float/hash/locale identity, explicit
+  Missing/Unsupported non-participations и unique candidates с canonical pair,
+  exact left/right observation keys и полным ordered tuple materialized
+  matches.
+- Caller-supplied positive bucket pair limit, exact prospective
+  `n * (n - 1) / 2`, whole-bucket `OversizedBucket` и запрет partial first-N.
+  Pair attempts ограничены `2NL`; global quadratic scan/fallback отсутствует.
+- Design exact blocking coverage для fully fictional reviewed control set:
+  eligible confirmed denominator, no-shared/oversized misses, отдельные
+  PairNotAssessed/outside/stale counts и typed unavailable reasons для
+  inconclusive labels/нулевого denominator.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
 - Постоянное хранилище, repository adapter, expected revision implementation,
-  batch pair generation, blocking/indexing и сохранение duplicate
-  assessments/reviews/control sets.
+  исполняемая batch pair generation, blocking/indexing и сохранение duplicate
+  candidates/assessments/reviews/control sets.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -261,7 +282,7 @@ property или безусловной истиной.
 
 ## Рекомендуемая следующая задача
 
-TASK-021 — принять design-only контракт детерминированного формирования ограниченного набора duplicate candidate pairs из available observations с явными blocking keys и измеримым риском пропуска, без реализации, quadratic all-pairs scan, storage, clustering, JSON, CLI или real data
+TASK-022 — реализовать neutral frozen/slots blocking/candidate types и pure deterministic generation по ADR 0008 для explicit available observations с oversized-bucket outcomes, без storage, JSON, CLI, real data или pair assessment
 
 ## Открытые архитектурные вопросы
 
@@ -276,8 +297,8 @@ TASK-021 — принять design-only контракт детерминиро�
   реального источника?
 - Когда составному нормализованному значению понадобится происхождение из
   нескольких исходных полей?
-- Какие blocking keys и coverage evidence позволят ограничить candidate pairs
-  без скрытого quadratic scan и измерить риск пропуска?
+- Какой bucket pair limit оправдают будущие fully fictional benchmarks и
+  reviewed blocking coverage без превращения числа в универсальную константу?
 
 Ответы не должны приниматься молча: существенные решения оформляются в
 `docs/decisions/` в рамках назначенных задач.

@@ -145,11 +145,25 @@ conclusive labels всей population, поэтому confirmed insufficient и
 not-assessed cases остаются видимыми false negatives. Human label не выводится
 из policy outcome и не создаёт physical property, merge или cluster.
 
+TASK-021 design-only принимает отдельный bounded candidate-generation
+контракт в [ADR 0008](docs/decisions/0008-duplicate-candidate-generation.md) и
+[детальной спецификации](docs/design/PUBLICATION-DUPLICATE-CANDIDATES.md).
+Непустой canonical набор current `AvailableObservation` участвует
+максимум в двух exact blocking passes — `total_area + rooms` и
+`total_area + location_text` — по отдельной
+`publication-duplicate-candidate-policy@1`. Caller передаёт positive bucket
+pair limit; oversized bucket целиком не разворачивается и остаётся явным
+outcome с exact prospective count. Multi-pass union сохраняет exact matches,
+но не создаёт duplicate evidence или assessment. Missed-pair risk выражается
+exact blocking coverage только на supplied fully fictional reviewed control
+population с отдельными PairNotAssessed/outside/stale counts.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, batch pair generation, clustering, база данных, API,
-интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw, Telegram и
-публикация удалённого репозитория. Candidate generation, blocking/indexing и
-оценка риска пропуска pairs пока также отсутствуют. Выбор Python-базиса не
+repository adapter, исполняемая batch pair generation, blocking/indexing,
+clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
+OpenClaw, Telegram и публикация удалённого репозитория. TASK-021 не выбирает
+bucket limit, не запускает assessment и не заявляет production recall,
+репрезентативность или юридическую допустимость сбора. Выбор Python-базиса не
 является выбором всех будущих инфраструктурных компонентов: они добавляются
 только по подтверждённой потребности. Соблюдение правовых требований, условий
 площадок, ограничений на сбор и хранение данных будет конкретизировано до
