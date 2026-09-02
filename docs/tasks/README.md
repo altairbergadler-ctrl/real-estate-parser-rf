@@ -64,4 +64,8 @@
 - [TASK-019](TASK-019.md) — neutral frozen/slots duplicate-pair assessment,
   policy-ordered evidence/non-comparison и отдельная pure manual review с
   revision semantics без batch/clustering, storage или external boundary;
-  завершено в task-ветке, готово к review/merge.
+  завершено и слито в `main`.
+- [TASK-020](TASK-020.md) — neutral reviewed control set и pure exact
+  duplicate-policy coverage/review-load/precision/recall metrics с typed label
+  sufficiency без storage, JSON, CLI или изменения policy; завершено в
+  task-ветке, готово к review.
