@@ -133,11 +133,24 @@ probability или tolerance. Current/stale context, explicit assessment
 supersession и отдельные immutable manual-review revisions также не создают
 physical property, merge, cluster или transitive relation.
 
+TASK-020 добавляет отдельный neutral pure quality layer над готовыми exact
+pair results. Непустой immutable control set хранит не более одного case на
+canonical pair, единую explicit policy version, exact
+`PairAssessmentSuccess | PairNotAssessed` и independently supplied pair-bound
+confirm/reject/inconclusive label. Чистая evaluation сохраняет categorical
+outcome/not-assessed/review-required counts, exact assessment coverage и
+population review load. Precision и recall представлены только integer
+numerator/denominator либо typed причиной недоступности; recall требует
+conclusive labels всей population, поэтому confirmed insufficient и
+not-assessed cases остаются видимыми false negatives. Human label не выводится
+из policy outcome и не создаёт physical property, merge или cluster.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
 repository adapter, batch pair generation, clustering, база данных, API,
 интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw, Telegram и
-публикация удалённого репозитория. Quality control set и метрики duplicate
-policy пока также отсутствуют. Выбор Python-базиса не является выбором всех
-будущих инфраструктурных компонентов: они добавляются только по подтверждённой
-потребности. Соблюдение правовых требований, условий площадок, ограничений на
-сбор и хранение данных будет конкретизировано до реализации реальных источников.
+публикация удалённого репозитория. Candidate generation, blocking/indexing и
+оценка риска пропуска pairs пока также отсутствуют. Выбор Python-базиса не
+является выбором всех будущих инфраструктурных компонентов: они добавляются
+только по подтверждённой потребности. Соблюдение правовых требований, условий
+площадок, ограничений на сбор и хранение данных будет конкретизировано до
+реализации реальных источников.

@@ -57,13 +57,14 @@
 - **TASK-019 — pure duplicate-pair assessment и manual-review types.**
   Реализовать neutral frozen/slots duplicate-pair assessment, evidence и
   manual-review types и чистую симметричную оценку одной пары по ADR 0006, без
-  batch/clustering, storage, JSON, CLI и изменений первого среза. Завершено в
-  task-ветке, готово к review/merge.
+  batch/clustering, storage, JSON, CLI и изменений первого среза. Завершено и
+  слито в `main`.
 - **TASK-020 — reviewed control set и pure duplicate-policy quality metrics.**
   Принять контракт полностью вымышленного reviewed control set и реализовать
   pure метрики coverage, candidate/review load и precision/recall только при
   достаточных labels, без real data, storage, JSON, CLI или изменения policy.
-  Следующая рекомендуемая малая задача; не начата.
+  Завершено в task-ветке, готово к review.
+- **TASK-021 — принять design-only контракт детерминированного формирования ограниченного набора duplicate candidate pairs из available observations с явными blocking keys и измеримым риском пропуска, без реализации, quadratic all-pairs scan, storage, clustering, JSON, CLI или real data** — следующая рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный

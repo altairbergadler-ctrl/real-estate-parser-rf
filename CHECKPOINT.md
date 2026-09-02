@@ -2,19 +2,19 @@
 
 ## Завершённая задача
 
-TASK-019 — neutral pure duplicate-pair assessment и manual review. Один
-frozen/slots core-модуль канонически оценивает ровно две разные source
-publications по точным observations и `publication-duplicate-policy@1`,
-сохраняет ordered evidence/non-comparisons с полным provenance и возвращает
-только conservative categorical hypothesis. Separate manual review проверяет
-supplied finding references и immutable revision chain без merge, clustering,
-storage или утверждения физического объекта.
+TASK-020 — neutral reviewed control set и pure duplicate-policy quality
+metrics. Immutable one-policy population атомарно связывает unique canonical
+pairs, exact assessment/not-assessed results и independently supplied
+pair-bound labels. Pure evaluation сохраняет categorical counts, exact
+coverage и population review load, а precision/recall выдаёт только при
+достаточных labels с явными denominators; human label не становится physical
+property или безусловной истиной.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-019 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/019-duplicate-pair-assessment` сохраняет исходный
-  атомарный implementation commit после безопасной интеграции.
+- TASK-020 завершена в отдельной ветке
+  `task/020-reviewed-control-metrics`, готова к review и намеренно не слита.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -229,12 +229,30 @@ storage или утверждения физического объекта.
 - 93 fully fictional прямых unit-теста покрывают rules, symmetry, decision
   table, unavailable, identity/current/supersession, manual reviews,
   immutability, запрещённую merge/cluster поверхность и отсутствие I/O.
+- ADR 0007 и согласованная design-спецификация denominator-specific label
+  sufficiency для reviewed duplicate-policy control population.
+- Узкий independently supplied `DuplicateControlLabel`, atomic
+  `DuplicatePolicyControlCase` и непустой one-policy
+  `DuplicatePolicyControlSet` с unique pairs и canonical order.
+- Typed control contract errors отклоняют unsupported/failure result и
+  pair/label/policy conflicts без partial metrics; `PairNotAssessed` получает
+  explicit policy binding в case.
+- Pure `evaluate_duplicate_policy_quality` возвращает counts каждого automatic
+  outcome, not-assessed/assessed/review-required totals, exact assessment
+  coverage и population review load.
+- Precision и recall имеют только `ExactRatio` либо typed unavailable reason;
+  precision требует conclusive review-required denominator, recall — всей
+  population и учитывает confirmed insufficient/not-assessed false negatives.
+- 24 fully fictional unit-теста покрывают mixed/all assessed/all not-assessed,
+  same/cross-source, permutations, bindings/conflicts, immutability, exact
+  ratios, label sufficiency/independence и отсутствие I/O/merge/cluster API.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
 - Постоянное хранилище, repository adapter, expected revision implementation,
-  batch pair generation и сохранение duplicate assessments/reviews.
+  batch pair generation, blocking/indexing и сохранение duplicate
+  assessments/reviews/control sets.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -243,10 +261,7 @@ storage или утверждения физического объекта.
 
 ## Рекомендуемая следующая задача
 
-TASK-020 — принять контракт полностью вымышленного reviewed control set и
-реализовать pure метрики качества duplicate policy: coverage, candidate/review
-load и precision/recall только при достаточных labels, без real data, storage,
-JSON, CLI или изменения policy. Это ровно следующий малый шаг; он не начат.
+TASK-021 — принять design-only контракт детерминированного формирования ограниченного набора duplicate candidate pairs из available observations с явными blocking keys и измеримым риском пропуска, без реализации, quadratic all-pairs scan, storage, clustering, JSON, CLI или real data
 
 ## Открытые архитектурные вопросы
 
@@ -261,7 +276,8 @@ JSON, CLI или изменения policy. Это ровно следующий
   реального источника?
 - Когда составному нормализованному значению понадобится происхождение из
   нескольких исходных полей?
-- Как измерять качество дедупликации и доказательных сигналов?
+- Какие blocking keys и coverage evidence позволят ограничить candidate pairs
+  без скрытого quadratic scan и измерить риск пропуска?
 
 Ответы не должны приниматься молча: существенные решения оформляются в
 `docs/decisions/` в рамках назначенных задач.

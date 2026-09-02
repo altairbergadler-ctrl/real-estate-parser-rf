@@ -131,6 +131,16 @@ TASK-016; supporting, contradicting и non-comparable findings остаются
 `create_manual_review` валидирует supplied identity/time, exact finding
 references и revision chain без часов, UUID, I/O, storage или hidden state.
 
+TASK-020 реализует отдельный neutral quality-модуль поверх публичных pair
+results TASK-019. Pair-bound independently supplied label намеренно не
+переиспользует assessment-bound manual review. Непустой tuple-only control set
+атомарно валидирует exact pair/result/policy binding, unique pairs и canonical
+order. Pure evaluation считает counts и только exact integer ratios;
+precision требует conclusive labels своего review-required denominator, а
+recall — всей population. Typed unavailable reasons сохраняют недостаточность
+labels без нуля или исключения. Модуль не пересчитывает assessment и не вводит
+candidate generation, storage, sampling, physical property, merge или cluster.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
