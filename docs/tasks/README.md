@@ -81,5 +81,10 @@
 - [TASK-023](TASK-023.md) — neutral frozen/slots exact candidate blocking
   coverage поверх готовых control/generation contracts с disjoint counts,
   typed unavailable и atomic inconsistent-result failure без повторного
-  generation/assessment, storage или external boundaries; завершено в
+  generation/assessment, storage или external boundaries; завершено и слито в
+  `main`.
+- [TASK-024](TASK-024.md) — design-only pure atomic composition exact
+  generation/current available context к existing pair assessment с separate
+  policy identities, zero-call preflight и atomic downstream conflicts без
+  partial outcomes, storage или physical-property semantics; завершено в
   task-ветке, не слито в `main`.

@@ -177,6 +177,18 @@ success; отсутствие candidate при общем non-oversized key ат
 вводит I/O, storage/index, hidden all-pairs scan, physical property, merge или
 cluster и не интерпретирует fictional coverage как production recall.
 
+TASK-024 design-only принимает следующую отдельную pure composition поверх
+public contracts TASK-019/022. Batch identity сохраняет exact generation
+identity и независимую explicit assessment policy version, а success — полный
+generation result, assessment policy и ordered item outcomes. Canonical current
+available context обязан exact совпасть с generation keys; missing, extra и
+new-key той же reference различаются structural conflicts. Preflight failure
+не вызывает assessment, valid pass вызывает существующую single-pair operation
+ровно один раз на materialized candidate и атомарно отклоняет весь batch при
+любом downstream conflict без partial outcomes. Composition не повторяет
+blocking/generation, не превращает routing matches в evidence и не вводит
+storage, physical property, merge, cluster или transitive closure.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
