@@ -156,6 +156,17 @@ limit применяется к exact prospective count каждого bucket; o
 blocking coverage использует только eligible confirmed cases supplied fully
 fictional control set и не заявляет production recall.
 
+TASK-022 реализует только generation boundary отдельным neutral core-модулем,
+зависящим от normalization/observation contracts и canonical
+`PublicationPair`. Pure operation принимает явный caller-selected current
+tuple, атомарно отклоняет unavailable/unsupported/identity conflicts и после
+канонизации проецирует каждую available observation максимум в два exact typed
+keys либо ordered non-participations. Whole-bucket limit применяется к exact
+prospective count до pair materialization; допустимые buckets разворачиваются
+полностью, oversized buckets сохраняют canonical membership без partial
+first-N. Candidate union не вызывает assessment и не создаёт evidence,
+outcome, storage/index или blocking coverage.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.

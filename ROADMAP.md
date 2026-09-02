@@ -68,9 +68,13 @@
   Принять отдельную candidate policy из двух exact blocking passes, whole-bucket
   oversized outcome, stable union/replay/conflicts и exact missed-pair coverage
   на fully fictional control population без реализации, all-pairs scan,
-  storage, clustering, JSON, CLI или real data. Завершено в task-ветке, готово
-  к review; не слито в `main`.
-- **TASK-022 — реализовать neutral frozen/slots blocking/candidate types и pure deterministic generation по ADR 0008 для explicit available observations с oversized-bucket outcomes, без storage, JSON, CLI, real data или pair assessment** — следующая рекомендуемая малая задача; не начата.
+  storage, clustering, JSON, CLI или real data. Завершено и слито в `main`.
+- **TASK-022 — neutral frozen/slots blocking/candidate types и pure bounded
+  generation.** Реализовать exact two-pass policy, atomic current-input
+  validation, whole-bucket oversized outcomes и deterministic candidate union
+  без assessment, coverage, storage или external boundaries. Завершено в
+  task-ветке, не слито в `main`.
+- **TASK-023 — реализовать pure exact blocking-coverage evaluation по ADR 0008 поверх DuplicatePolicyControlSet и DuplicateCandidateGenerationResult с typed unavailable/conflict outcomes, без storage, JSON, CLI, real data или изменения generation/assessment policies** — следующая рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный

@@ -158,11 +158,23 @@ outcome с exact prospective count. Multi-pass union сохраняет exact ma
 exact blocking coverage только на supplied fully fictional reviewed control
 population с отдельными PairNotAssessed/outside/stale counts.
 
+TASK-022 реализует generation-часть этого контракта отдельным neutral
+frozen/slots-модулем. `publication-duplicate-candidate-policy@1` содержит
+ровно два exact typed blocking passes; pure operation атомарно валидирует
+явный непустой tuple current observations, канонизирует его и создаёт максимум
+две memberships на observation. Для каждого bucket exact prospective count
+вычисляется до pair loops: bucket сверх caller limit целиком остаётся
+`OversizedBucket`, а допустимый bucket полностью materializes canonical pairs.
+Union сохраняет все и только materialized matches в policy order, включая
+alternate route при oversized другом pass. Missing/Unsupported participation,
+empty candidate success и generation conflicts остаются явными; assessment и
+blocking coverage не выполняются.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, исполняемая batch pair generation, blocking/indexing,
+repository adapter, blocking-coverage evaluator, assessment batch,
 clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
-OpenClaw, Telegram и публикация удалённого репозитория. TASK-021 не выбирает
-bucket limit, не запускает assessment и не заявляет production recall,
+OpenClaw, Telegram и публикация удалённого репозитория. Candidate policy не
+выбирает bucket limit, не запускает assessment и не заявляет production recall,
 репрезентативность или юридическую допустимость сбора. Выбор Python-базиса не
 является выбором всех будущих инфраструктурных компонентов: они добавляются
 только по подтверждённой потребности. Соблюдение правовых требований, условий

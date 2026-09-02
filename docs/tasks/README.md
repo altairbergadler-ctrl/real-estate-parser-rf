@@ -72,4 +72,9 @@
 - [TASK-021](TASK-021.md) — design-only bounded multi-pass duplicate candidate
   generation с exact blocking keys, explicit oversized buckets и fictional
   blocking coverage без Python implementation, storage, all-pairs scan или
-  pair assessment; завершено в task-ветке, готово к review.
+  pair assessment; завершено и слито в `main`.
+- [TASK-022](TASK-022.md) — neutral frozen/slots exact blocking/candidate
+  contracts и pure bounded deterministic generation с atomic current-input
+  validation, whole-bucket oversized outcomes и policy-ordered union без
+  assessment, coverage, storage или external boundaries; завершено в
+  task-ветке, не слито в `main`.
