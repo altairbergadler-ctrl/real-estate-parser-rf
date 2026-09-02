@@ -63,8 +63,14 @@
   Принять контракт полностью вымышленного reviewed control set и реализовать
   pure метрики coverage, candidate/review load и precision/recall только при
   достаточных labels, без real data, storage, JSON, CLI или изменения policy.
-  Завершено в task-ветке, готово к review.
-- **TASK-021 — принять design-only контракт детерминированного формирования ограниченного набора duplicate candidate pairs из available observations с явными blocking keys и измеримым риском пропуска, без реализации, quadratic all-pairs scan, storage, clustering, JSON, CLI или real data** — следующая рекомендуемая малая задача; не начата.
+  Завершено и слито в `main`.
+- **TASK-021 — deterministic bounded duplicate candidate generation design.**
+  Принять отдельную candidate policy из двух exact blocking passes, whole-bucket
+  oversized outcome, stable union/replay/conflicts и exact missed-pair coverage
+  на fully fictional control population без реализации, all-pairs scan,
+  storage, clustering, JSON, CLI или real data. Завершено в task-ветке, готово
+  к review; не слито в `main`.
+- **TASK-022 — реализовать neutral frozen/slots blocking/candidate types и pure deterministic generation по ADR 0008 для explicit available observations с oversized-bucket outcomes, без storage, JSON, CLI, real data или pair assessment** — следующая рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный
