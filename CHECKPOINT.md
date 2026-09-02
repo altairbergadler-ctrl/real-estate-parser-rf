@@ -12,14 +12,13 @@ canonical downstream conflict set без partial item outcomes.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-024 слиты в `main` отдельными merge-коммитами.
+- TASK-001…TASK-025 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
   исходный атомарный documentation commit после безопасной интеграции.
-- TASK-025 завершена только в
-  `task/025-duplicate-assessment-batch-core`; её implementation commit
-  намеренно не слит в `main` этой задачей.
+- Короткоживущая ветка `task/025-duplicate-assessment-batch-core` сохраняет
+  исходный атомарный implementation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
