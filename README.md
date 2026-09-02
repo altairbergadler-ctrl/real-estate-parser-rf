@@ -11,6 +11,13 @@
 byte-exact JSON stdout. База данных, API, интерфейс, реальные площадки, ИИ и
 интеграции ещё не реализованы.
 
+Поверх завершённого среза TASK-015 документально принимает модель повторных
+наблюдений одной source publication, детерминированных изменений,
+подтверждённой недоступности и reappearance. Она описана в
+[спецификации observations](docs/design/PUBLICATION-OBSERVATIONS-AND-CHANGES.md)
+и [ADR 0005](docs/decisions/0005-publication-observations-and-changes.md), но
+Python-типы, persistence, JSON и CLI для неё ещё не реализованы.
+
 ## С чего начать
 
 1. Прочитать [PROJECT.md](PROJECT.md) — назначение, сценарии и границы продукта.
@@ -26,6 +33,9 @@ byte-exact JSON stdout. База данных, API, интерфейс, реал
 - `docs/design/` — подробные проекты ограниченных сквозных сценариев.
 
 Предметные типы, состояния и границы первого среза описаны в [DOMAIN-MODEL-AND-CONTRACTS.md](docs/design/DOMAIN-MODEL-AND-CONTRACTS.md).
+
+Модель нескольких наблюдений и изменений одной `PublicationRef` описана в
+[PUBLICATION-OBSERVATIONS-AND-CHANGES.md](docs/design/PUBLICATION-OBSERVATIONS-AND-CHANGES.md).
 
 Точные входные документы, матрица сценариев и правила golden-файлов описаны в [TEST-STRATEGY-AND-FIXTURES.md](docs/design/TEST-STRATEGY-AND-FIXTURES.md); фактические данные перечислены в [manifest fixtures v1](tests/fixtures/v1/MANIFEST.md).
 
