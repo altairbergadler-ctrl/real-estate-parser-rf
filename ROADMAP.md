@@ -110,9 +110,17 @@
   принять legal/ethical/technical контракт: разрешённый способ доступа,
   rate limits, минимальный набор данных, обработку блокировок и персональных
   данных, stop conditions и доказательства соблюдения правил. Без
-  scraper/source adapter и без сбора real data. Не начата; требует
-  отдельного подтверждения пользователем источника и использования сети.
-- Реализовать первый адаптер источника без проникновения его особенностей в ядро.
+  scraper/source adapter и без сбора real data. Завершено для ЦИАН как
+  `CONDITIONAL_GO` в отдельной ветке: live access запрещён до письменного
+  разрешения на public listings, documented official API/outbound feed,
+  method-specific quota, PII-safe fields и retention/deletion условий.
+- **TASK-029 — offline adapter ЦИАН по разрешённому примеру.** После снятия
+  всех blockers TASK-028 реализовать только offline source adapter на
+  provider-supplied synthetic/redacted либо явно разрешённом сохранённом
+  примере. Без live access; не начата и заблокирована до получения полного
+  evidence package.
+- Controlled live pilot ЦИАН проектировать ещё более поздней отдельной задачей
+  только после TASK-029 и fresh revalidation всего access contract.
 - Добавить ограничение частоты, повторные попытки, контроль ошибок и наблюдаемость.
 - Добавлять следующие источники по одному, подтверждая совместимость контрактов.
 
