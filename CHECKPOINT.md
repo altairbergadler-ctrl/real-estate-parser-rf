@@ -2,16 +2,17 @@
 
 ## Завершённая задача
 
-TASK-014 — минимальный path-level application flow, тонкий `argparse` CLI и
-итоговые subprocess E2E первого детерминированного локального среза. Готовые
-границы TASK-006…TASK-013 связаны без новых предметных правил; stdout/stderr,
-exit codes, атомарность и existing golden bytes проверены снаружи процесса.
+TASK-015 — документальная модель повторных наблюдений и изменений одной source
+publication. ADR 0005 и отдельная design-спецификация принимают identity и
+порядок observation stream, exact replay и конфликты, версионированный
+`ChangeSet`, доказательную недоступность и reappearance без Python-реализации и
+без выбора хранилища.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-014 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/014-cli-e2e` сохраняет исходный атомарный
-  содержательный коммит после безопасной интеграции.
+- TASK-015 завершена в `task/015-observation-change-model`, готова к отдельному
+  review/merge и ещё не слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -111,11 +112,33 @@ exit codes, атомарность и existing golden bytes проверены �
   невалидных документов, usage, missing/non-UTF-8 input и повторный запуск.
 - Проект первого локального среза, точные внешние документы, негативная матрица,
   byte-exact golden-файлы и правила детерминизма TASK-002…TASK-004.
+- ADR 0005: один observation stream относится строго к одной `PublicationRef`,
+  а `ObservationKey` структурно состоит из reference и канонического
+  `ObservedAt`; physical property и cross-source dedup не входят в identity.
+- Спецификация immutable available/unavailable observations, строго
+  возрастающей history, exact replay, equal-timestamp conflict, запрета нового
+  out-of-order key и атомарной обработки набора без partial history.
+- Версионированная `publication-change-policy@1` со стабильным порядком
+  `source_url`, `location_text`, `price_amount`, `currency`, `total_area`,
+  `rooms`; canonical change, raw-only change, provenance refresh и успешный
+  пустой `ChangeSet` различаются явно.
+- Полная таблица `Present`/`Missing`/`Unsupported`, включая reason code,
+  canonical before/after и оба provenance; `PublicationRef` и `ObservedAt` не
+  объявляются изменениями listing.
+- Доказательная модель unavailable только из direct source state либо
+  conclusive targeted check конкретной publication по версии правила.
+  Отсутствие в batch, timeout, блокировка, network/source failure и incomplete
+  scan оставляют исход неизвестным и не меняют history.
+- Availability transitions `ConfirmedUnavailable` и `Reappeared`, различие
+  unavailable от недоказанных deleted/expired claims, минимальный pure API,
+  стабильные conflict codes и consumer contract будущего atomic repository
+  port без выбора технологии.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Несколько наблюдений, постоянное хранилище, история изменений и дедупликация.
+- Python-типы и операции нескольких наблюдений, постоянное хранилище,
+  repository adapter, фактическая история изменений и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
   площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -124,19 +147,19 @@ exit codes, атомарность и existing golden bytes проверены �
 
 ## Рекомендуемая следующая задача
 
-Первый локальный сквозной срез завершён. Пользователь должен отдельно выбрать
-один крупный пункт этапа 3 и декомпозировать его в следующую малую задачу.
-TASK-015 заранее не определена; реализация качества данных автоматически не
-начинается.
+TASK-016 — реализовать neutral frozen/slots observation/change types и чистую
+детерминированную операцию сравнения/добавления одного observation по ADR 0005,
+без хранилища, JSON, CLI и изменения первого среза. Это ровно следующий малый
+шаг; он не начат.
 
 ## Открытые архитектурные вопросы
 
-- Как представить несколько наблюдений и изменения одной публикации после
-  подтверждения первого среза?
 - Когда и на каких доказательствах вводить сущность или группу физического
   объекта для дедупликации?
 - Какое постоянное хранение потребуется и какие измеренные требования определят
   его выбор?
+- Понадобится ли отдельный backfill/recompute workflow для доказанных
+  out-of-order наблюдений, и как он будет версионировать пересчитанные changes?
 - Какие правила законного и бережного получения данных обязательны для первого
   реального источника?
 - Когда составному нормализованному значению понадобится происхождение из

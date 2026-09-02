@@ -45,6 +45,12 @@ application composition отдельно от CLI и subprocess-интеграц
 success golden bytes, partial semantics, атомарные content failures, глобальный
 порядок двух документов, usage/operational exit `2` и повторяемость.
 
+TASK-015 не изменяет этот oracle, fixtures v1 или golden-файлы. Будущие
+проверки нескольких observations, changes, unavailable evidence и reappearance
+заданы отдельной
+[спецификацией](PUBLICATION-OBSERVATIONS-AND-CHANGES.md) и должны создаваться
+прямо на нейтральных типах до появления какого-либо storage adapter.
+
 ## Внешний документ пакета публикаций v1
 
 ### Корень
