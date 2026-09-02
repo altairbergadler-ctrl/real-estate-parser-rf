@@ -12,9 +12,7 @@ executor.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-026 слиты в `main` отдельными merge-коммитами.
-- TASK-027 завершена в `task/027-persistence-ports-in-memory` и не
-  слита в `main` по явной границе задачи.
+- TASK-001…TASK-027 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
@@ -23,6 +21,8 @@ executor.
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/026-persistence-replay-boundary-design` сохраняет
   исходный атомарный documentation commit после безопасной интеграции.
+- Короткоживущая ветка `task/027-persistence-ports-in-memory` сохраняет
+  исходный атомарный implementation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать

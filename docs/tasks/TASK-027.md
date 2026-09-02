@@ -1,6 +1,6 @@
 # TASK-027 — neutral persistence ports и in-memory reference adapter
 
-- Статус: завершено в task-ветке, не слито в `main`
+- Статус: завершено и слито в `main`
 - Рабочая ветка: `task/027-persistence-ports-in-memory`
 - Целевая ветка: `main`
 - Стартовый SHA: `6c844845b8f5fd9644b1bd3f2daea70f7f8495f2`

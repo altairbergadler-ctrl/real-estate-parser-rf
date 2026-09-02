@@ -97,8 +97,7 @@
 - **TASK-027 — neutral Python persistence ports и in-memory reference
   adapter.** Реализовать ADR 0010 с exact replay, optimistic revision и atomic
   failures без SQL/JSON/filesystem/CLI/real data и без side-effecting production
-  executor. Завершено в `task/027-persistence-ports-in-memory`; в `main`
-  не слито.
+  executor. Завершено и слито в `main`.
 
 - Добавить версионируемые правила нормализации.
 - Позднее выбрать и реализовать durable infrastructure adapter по измеренным
