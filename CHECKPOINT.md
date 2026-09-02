@@ -2,18 +2,20 @@
 
 ## Завершённая задача
 
-TASK-022 — pure bounded duplicate candidate generation. Отдельный neutral
-frozen/slots-модуль реализует `publication-duplicate-candidate-policy@1` с
-ровно двумя exact typed passes, atomic validation явного current input,
-Missing/Unsupported non-participation, whole-bucket oversized outcomes и
-policy-ordered union candidates. Generation не вызывает assessment и не
-реализует blocking coverage.
+TASK-023 — pure exact duplicate-candidate blocking coverage. Отдельный neutral
+frozen/slots-модуль измеряет только supplied fully fictional control population
+в exact generation context, сохраняет все disjoint eligibility/miss counts и
+возвращает exact ratio либо typed unavailable. Общий non-oversized key без
+exact candidate даёт atomic `generation_result_inconsistent` без partial
+metrics; generation и assessment не перезапускаются.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-022 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/022-duplicate-candidate-core` сохраняет исходный
   атомарный implementation commit после безопасной интеграции.
+- TASK-023 завершена только в `task/023-duplicate-blocking-coverage` и не слита
+  в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -283,6 +285,21 @@ policy-ordered union candidates. Generation не вызывает assessment и 
   both/single passes, same/cross-source, Missing/Unsupported, exact boundary,
   no-first-N oversized skip, alternate route, permutation/new-key identity,
   immutability, exact bound и отсутствие assessment/I/O/storage surface.
+- Neutral frozen/slots `BlockingCoverageUnavailable`,
+  `DuplicateCandidateBlockingCoverage`, structural coverage conflict subject,
+  canonical atomic success/failure и ровно две unavailable reasons ADR 0008.
+- Pure `evaluate_duplicate_candidate_blocking_coverage` классифицирует
+  conclusively confirmed cases в строгом порядке PairNotAssessed, outside
+  generation input, stale/mismatched exact keys и eligible, сохраняя assessment
+  policy, candidate policy и полную generation identity раздельно.
+- Eligible exact-key case считается covered по exact candidate identity,
+  no-shared-key miss либо whole-oversized-bucket miss. Общий non-oversized key
+  без candidate даёт только
+  `DUPLICATE_CANDIDATE_COVERAGE_CONFLICT/generation_result_inconsistent`.
+- 18 fully fictional direct tests покрывают exact `2/4`, оба routes,
+  oversized alternate route, same/cross-source, eligibility order, label и
+  PairNotAssessed counts, unavailable precedence, exact ratio, bindings,
+  invariants, canonical conflicts, immutability и запрещённую surface.
 
 ## Что намеренно не реализовано
 
@@ -290,7 +307,7 @@ policy-ordered union candidates. Generation не вызывает assessment и 
 - Постоянное хранилище, repository adapter, expected revision implementation,
   blocking/indexing и сохранение duplicate candidates/assessments/reviews/
   control sets.
-- Pure blocking-coverage evaluator TASK-023 и batch execution pair assessment.
+- Pure atomic batch composition candidate assessments TASK-024.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -299,7 +316,7 @@ policy-ordered union candidates. Generation не вызывает assessment и 
 
 ## Рекомендуемая следующая задача
 
-TASK-023 — реализовать pure exact blocking-coverage evaluation по ADR 0008 поверх DuplicatePolicyControlSet и DuplicateCandidateGenerationResult с typed unavailable/conflict outcomes, без storage, JSON, CLI, real data или изменения generation/assessment policies
+TASK-024 — спроектировать pure atomic batch composition от DuplicateCandidateGenerationResult и exact current AvailableObservation к assess_publication_pair с explicit binding/conflict semantics, без storage, JSON, CLI, real data или изменения candidate/assessment policies
 
 ## Открытые архитектурные вопросы
 

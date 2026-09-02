@@ -72,9 +72,14 @@
 - **TASK-022 — neutral frozen/slots blocking/candidate types и pure bounded
   generation.** Реализовать exact two-pass policy, atomic current-input
   validation, whole-bucket oversized outcomes и deterministic candidate union
-  без assessment, coverage, storage или external boundaries. Завершено в
-  task-ветке, не слито в `main`.
-- **TASK-023 — реализовать pure exact blocking-coverage evaluation по ADR 0008 поверх DuplicatePolicyControlSet и DuplicateCandidateGenerationResult с typed unavailable/conflict outcomes, без storage, JSON, CLI, real data или изменения generation/assessment policies** — следующая рекомендуемая малая задача; не начата.
+  без assessment, coverage, storage или external boundaries. Завершено и слито
+  в `main`.
+- **TASK-023 — pure exact duplicate-candidate blocking coverage.** Реализовать
+  frozen/slots counts, exact ratio/typed unavailable и atomic inconsistent-result
+  conflict поверх готовых control set и generation result без повторного
+  assessment/generation, storage или external boundaries. Завершено в
+  `task/023-duplicate-blocking-coverage`, не слито в `main`.
+- TASK-024 — спроектировать pure atomic batch composition от DuplicateCandidateGenerationResult и exact current AvailableObservation к assess_publication_pair с explicit binding/conflict semantics, без storage, JSON, CLI, real data или изменения candidate/assessment policies. Следующая рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный

@@ -170,8 +170,20 @@ alternate route при oversized другом pass. Missing/Unsupported particip
 empty candidate success и generation conflicts остаются явными; assessment и
 blocking coverage не выполняются.
 
+TASK-023 реализует отдельный neutral pure blocking-coverage слой поверх уже
+валидных `DuplicatePolicyControlSet` и `DuplicateCandidateGenerationResult`.
+Evaluation сохраняет разные assessment/candidate policy identities и exact
+generation identity, затем классифицирует каждый conclusively confirmed case
+как PairNotAssessed, outside input, stale keys либо eligible. Eligible cases
+считаются covered, no-shared-key miss или whole-oversized-bucket miss; общий
+non-oversized key без exact candidate даёт атомарный
+`generation_result_inconsistent` без partial metrics. Exact ratio остаётся
+несокращённой integer-дробью, а inconclusive labels и нулевой eligible
+denominator имеют typed unavailable reasons. Метрика относится только к
+supplied fully fictional population и не заявляет production recall.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, blocking-coverage evaluator, assessment batch,
+repository adapter, assessment batch,
 clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
 OpenClaw, Telegram и публикация удалённого репозитория. Candidate policy не
 выбирает bucket limit, не запускает assessment и не заявляет production recall,
