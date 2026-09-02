@@ -100,8 +100,18 @@ conclusive targeted check; batch omission и operational failures не имею�
 создания unavailable observation. Reappearance не создаёт физический объект и
 не стирает provenance предыдущих наблюдений.
 
-В текущий объём по-прежнему не входят запись JSON на диск, batch-добавление в
-несколько histories, постоянное хранение, база данных, API,
+TASK-017 добавляет отдельную чистую прикладную композицию поверх single-history
+операции TASK-016. Immutable контейнер хранит не более одной history на
+`PublicationRef` в каноническом порядке, а непустой tuple candidates
+группируется по reference и времени независимо от порядка входа. Exact
+duplicates одного observation сворачиваются; успешный batch возвращает полный
+набор histories и канонические item outcomes, а любой набор доказуемых
+conflicts атомарно отклоняет все streams без partial histories, dispositions
+или `ChangeSet`. Новые streams начинаются с логически пустой history версии
+переданной policy; storage lookup и concurrency в этой композиции отсутствуют.
+
+В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
+repository adapter, база данных, API,
 интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw, Telegram и
 публикация удалённого репозитория. Выбор Python-базиса не является выбором всех
 будущих инфраструктурных компонентов: они добавляются только по подтверждённой

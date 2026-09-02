@@ -96,8 +96,18 @@ Pydantic, JSON, filesystem, CLI или storage: они возвращают immu
 `ChangeSet`, exact replay либо стабильный atomic conflict без partial history.
 Первая policy сравнивает только шесть утверждённых полей, исключает координату
 `ObservedAt` из изменения provenance и не превращает missing field или
-операционную ошибку в недоступность публикации. Batch/multi-history composition
-остаётся отдельной прикладной операцией следующей задачи.
+операционную ошибку в недоступность публикации.
+
+TASK-017 реализует batch/multi-history boundary отдельным нейтральным модулем
+прикладной композиции, зависящим от публичного pure append TASK-016.
+`PublicationObservationHistories` принимает только tuple, обеспечивает
+уникальность stream по `PublicationRef` и хранит histories канонически.
+Композиция группирует и сортирует непустой tuple observations, сворачивает
+exact duplicates, создаёт отсутствующие streams как пустые histories текущей
+policy и вызывает `append_observation` для каждого уникального допустимого
+key. Только полностью успешный batch выдаёт новые histories и item outcomes;
+любой globally ordered conflict set выдаётся без partial state. Эта граница не
+является repository port и не вводит storage lookup, revision или I/O.
 
 ## Модули и ответственность
 

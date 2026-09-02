@@ -2,17 +2,19 @@
 
 ## Завершённая задача
 
-TASK-016 — нейтральное immutable-ядро повторных наблюдений и изменений одной
-source publication. Frozen/slots типы реализуют observation identity, history,
-field/availability changes, доказательную недоступность и стабильные conflicts,
-а чистые операции сравнивают последовательные observations и атомарно добавляют
-ровно один кандидат без Python boundary или выбора хранилища.
+TASK-017 — чистая атомарная композиция непустого набора observations в
+несколько независимых publication histories. Frozen/slots контейнер хранит
+уникальные streams канонически, batch сворачивает exact duplicates и применяет
+уникальные keys через single-history append TASK-016, а любой глобально
+упорядоченный conflict set возвращается без partial histories, outcomes или
+`ChangeSet`.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-016 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/016-observation-change-core` сохраняет исходный
-  атомарный содержательный commit после безопасной интеграции.
+- TASK-017 завершена в короткоживущей ветке
+  `task/017-atomic-observation-batch`, готова к review/merge и намеренно не
+  слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -156,12 +158,28 @@ field/availability changes, доказательную недоступност�
   инварианты, все шесть полей, полную матрицу outcome transitions, reason/raw/
   provenance/timestamp semantics, append/replay/conflicts, unavailable,
   reappearance, immutability и отсутствие partial failure state.
+- Отдельный frozen/slots `PublicationObservationHistories` принимает только
+  tuple histories, обеспечивает не более одного stream на `PublicationRef` и
+  канонически хранит их по source/publication id независимо от порядка входа.
+- Чистая `append_observation_batch` принимает непустой tuple candidates и
+  policy, группирует keys по reference, сворачивает exact duplicates и создаёт
+  отсутствующую history с версией переданной policy без repository lookup.
+- Каждый уникальный допустимый key обрабатывается готовой
+  `append_observation`; success содержит полный набор histories и канонические
+  `ObservationBatchItemOutcome` с точными `APPENDED`/`REPLAYED` и `ChangeSet`.
+- Batch failure содержит только непустой уникальный tuple всех доказуемых
+  conflicts в глобальном порядке reference, наличия/времени subject key,
+  category и code; partial histories, dispositions и changes отсутствуют.
+- Прямые fully fictional batch unit-тесты доказывают multi-stream creation,
+  update/untouched history, tail/non-tail replay, duplicate collapsing,
+  same-key content/evidence conflicts, out-of-order нескольких streams, policy
+  mismatch, atomic failure, permutation invariance, повторную идемпотентность и
+  сохранение availability/reappearance semantics TASK-016.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Batch/multi-history append, постоянное хранилище, repository adapter и
-  дедупликация.
+- Постоянное хранилище, repository adapter, expected revision и дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
   площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -170,9 +188,9 @@ field/availability changes, доказательную недоступност�
 
 ## Рекомендуемая следующая задача
 
-TASK-017 — реализовать чистую атомарную операцию добавления набора observations
-в несколько независимых publication histories с глобально детерминированными
-conflicts и без storage, JSON, CLI и изменений первого среза. Это ровно
+TASK-018 — принять доказательную модель возможных дублей публикаций с
+объяснимыми положительными и отрицательными основаниями, ручной проверкой и без
+программной реализации, physical-property merge, storage или AI. Это ровно
 следующий малый шаг; он не начат.
 
 ## Открытые архитектурные вопросы

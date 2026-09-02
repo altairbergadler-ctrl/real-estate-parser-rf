@@ -40,6 +40,14 @@ from real_estate_parser.normalization import (
     ValueProvenance,
     normalize_fixture_snapshot,
 )
+from real_estate_parser.publication_observation_batches import (
+    ObservationBatchAppendFailure,
+    ObservationBatchAppendResult,
+    ObservationBatchAppendSuccess,
+    ObservationBatchItemOutcome,
+    PublicationObservationHistories,
+    append_observation_batch,
+)
 from real_estate_parser.publication_observations import (
     PUBLICATION_CHANGE_POLICY_V1,
     PUBLICATION_CHANGE_POLICY_V1_VERSION,
@@ -184,6 +192,10 @@ __all__ = [
     "NormalizationSuccess",
     "NormalizedListing",
     "ObservedAt",
+    "ObservationBatchAppendFailure",
+    "ObservationBatchAppendResult",
+    "ObservationBatchAppendSuccess",
+    "ObservationBatchItemOutcome",
     "ObservationAppendDisposition",
     "ObservationAppendFailure",
     "ObservationAppendResult",
@@ -202,6 +214,7 @@ __all__ = [
     "PublicationRef",
     "PublicationRefDocument",
     "PublicationObservation",
+    "PublicationObservationHistories",
     "PublicationObservationHistory",
     "RawField",
     "Reappeared",
@@ -241,6 +254,7 @@ __all__ = [
     "ValueProvenance",
     "__version__",
     "adapt_fixture_source_batch",
+    "append_observation_batch",
     "append_observation",
     "build_fixture_collection",
     "compare_consecutive_observations",

@@ -53,4 +53,7 @@
   `PublicationRef`; завершено и слито в `main`.
 - [TASK-016](TASK-016.md) — neutral frozen/slots observation/change types и
   чистое детерминированное сравнение/добавление одного observation одной
-  `PublicationRef`; завершено в task-ветке, готово к review/merge.
+  `PublicationRef`; завершено и слито в `main`.
+- [TASK-017](TASK-017.md) — чистая атомарная batch-композиция observations в
+  несколько histories с каноническими outcomes и глобальными conflicts без
+  partial state или storage; завершено в task-ветке, готово к review/merge.
