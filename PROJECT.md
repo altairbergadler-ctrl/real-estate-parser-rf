@@ -245,7 +245,9 @@ scope, fields, quotas, retention и deletion. Подробный gate задан
 В текущий объём по-прежнему не входят запись JSON на диск, durable storage,
 production persistence adapter, side-effecting assessment execution, clustering,
 база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw,
-Telegram и публикация удалённого репозитория. Persistence design не выбирает
+Telegram. Код, документация и полная Git-история проекта опубликованы в
+приватном репозитории GitHub `altairbergadler-ctrl/real-estate-parser-rf`;
+это не означает наличие CI или развёртывания. Persistence design не выбирает
 SQL/JSON/filesystem schema, transaction manager, cache, queue, scheduler или
 distributed lock. Candidate policy не выбирает bucket limit, не запускает
 assessment и не заявляет production recall, репрезентативность или юридическую
