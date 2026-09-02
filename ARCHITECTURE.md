@@ -201,6 +201,18 @@ operation exact full available sides ровно один раз на supplied ca
 side-effecting execution и не создаёт physical property либо transitive
 relation.
 
+TASK-026 design-only принимает storage-neutral persistence/replay boundary в
+[ADR 0010](docs/decisions/0010-publication-persistence-and-replay.md) и
+[спецификации](docs/design/PUBLICATION-PERSISTENCE-AND-REPLAY.md). Immutable
+observations и supplied human assertions authoritative только в своих exact
+contexts; deterministic changes, generation, assessments и committed quality
+inputs остаются version-bound derived/audit records, а heads, current/stale,
+indexes и metrics — rebuildable projections. Application consumers владеют
+пятью узкими ports для histories, generation, assessment batch, manual review
+и quality audit. Exact replay проверяется до optimistic expected revision,
+equal identity/different content никогда не overwrite, а multi-history,
+generation/assessment и review units фиксируются all-or-nothing.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
@@ -216,7 +228,14 @@ relation.
 - **Уведомления** определяют события и предпочтения доставки, но не привязывают ядро к конкретному каналу.
 - **Интеграции** адаптируют внешние системы и интерфейсы — в будущем, например, OpenClaw и Telegram — к прикладным контрактам проекта.
 
-Хранилище, планирование запусков, наблюдаемость и пользовательские интерфейсы являются инфраструктурными или внешними аспектами. Минимальный потребительский контракт будущего observation repository уже ограничен атомарной загрузкой и compare-and-append одного publication stream, но технология, схема и adapter уточняются только тогда, когда этого требует выбранный сквозной срез.
+Хранилище, планирование запусков, наблюдаемость и пользовательские интерфейсы
+являются инфраструктурными или внешними аспектами. Persistence contracts
+принадлежат consuming application boundaries: adapters реализуют их снаружи и
+не передают внутрь backend query/session/transaction types. Общий
+`Repository[T]` не вводится. Opaque revisions являются только concurrency
+tokens конкретных slots, не domain identities или timestamps. Конкретные
+technology, schema, serialization и transaction mechanism выбираются позднее
+по измеренным требованиям и не меняют exact replay/no-partial-write contract.
 
 ## Явные контракты
 
