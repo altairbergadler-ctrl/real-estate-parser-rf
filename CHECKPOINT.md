@@ -12,12 +12,9 @@ PairNotAssessed/outside/stale counts.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-020 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/020-reviewed-control-metrics` сохраняет исходный
-  атомарный implementation commit после безопасной интеграции.
-- TASK-021 завершена только в `task/021-duplicate-candidate-design` от точного
-  стартового SHA `17f0edf1a89aaffc687f24b3023a7617fcaa7b53`, готова к review и
-  намеренно не слита в `main`.
+- TASK-001…TASK-021 слиты в `main` отдельными merge-коммитами.
+- Короткоживущая ветка `task/021-duplicate-candidate-design` сохраняет исходный
+  атомарный documentation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
