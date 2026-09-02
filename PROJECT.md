@@ -110,8 +110,20 @@ conflicts атомарно отклоняет все streams без partial hist
 или `ChangeSet`. Новые streams начинаются с логически пустой history версии
 переданной policy; storage lookup и concurrency в этой композиции отсутствуют.
 
+TASK-018 документально принимает доказательную модель возможных дублей без
+программной реализации. Автоматическая оценка относится только к
+неупорядоченной паре двух разных `PublicationRef`, точным
+`AvailableObservation` обеих сторон и версии policy. Она сохраняет отдельно
+supporting, contradicting и not-comparable основания и возвращает только
+категориальную необходимость ручной проверки либо недостаточность данных —
+никогда подтверждённый физический объект. Ручная проверка является отдельной
+immutable revision; она не меняет evidence, не сливает streams и не делает
+pairwise relation транзитивной. Точный контракт принят в
+[ADR 0006](docs/decisions/0006-publication-duplicate-evidence.md) и
+[спецификации duplicate evidence](docs/design/PUBLICATION-DUPLICATE-EVIDENCE.md).
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, база данных, API,
+repository adapter, программная реализация duplicate assessment, база данных, API,
 интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw, Telegram и
 публикация удалённого репозитория. Выбор Python-базиса не является выбором всех
 будущих инфраструктурных компонентов: они добавляются только по подтверждённой

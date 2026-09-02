@@ -56,4 +56,8 @@
   `PublicationRef`; завершено и слито в `main`.
 - [TASK-017](TASK-017.md) — чистая атомарная batch-композиция observations в
   несколько histories с каноническими outcomes и глобальными conflicts без
-  partial state или storage; завершено в task-ветке, готово к review/merge.
+  partial state или storage; завершено и слито в `main`.
+- [TASK-018](TASK-018.md) — доказательная симметричная модель pairwise
+  duplicate assessment, supporting/contradicting evidence и отдельной manual
+  review без physical-property merge, storage или AI; завершено в task-ветке,
+  готово к review/merge.

@@ -11,12 +11,19 @@
 byte-exact JSON stdout. База данных, API, интерфейс, реальные площадки, ИИ и
 интеграции ещё не реализованы.
 
-Поверх завершённого среза TASK-015 документально принимает модель повторных
-наблюдений одной source publication, детерминированных изменений,
-подтверждённой недоступности и reappearance. Она описана в
+Поверх завершённого среза TASK-015 принимает модель повторных observations
+одной source publication, детерминированных изменений, подтверждённой
+недоступности и reappearance. TASK-016 реализует её neutral frozen/slots core,
+а TASK-017 — атомарную композицию нескольких histories. Семантика описана в
 [спецификации observations](docs/design/PUBLICATION-OBSERVATIONS-AND-CHANGES.md)
-и [ADR 0005](docs/decisions/0005-publication-observations-and-changes.md), но
-Python-типы, persistence, JSON и CLI для неё ещё не реализованы.
+и [ADR 0005](docs/decisions/0005-publication-observations-and-changes.md);
+persistence, JSON и CLI для неё ещё не реализованы.
+
+TASK-018 принимает design-only модель симметричной pairwise duplicate
+assessment с объяснимыми supporting/contradicting evidence и отдельной
+immutable manual review. Она не создаёт физический объект, merge или cluster и
+описана в [duplicate evidence specification](docs/design/PUBLICATION-DUPLICATE-EVIDENCE.md)
+и [ADR 0006](docs/decisions/0006-publication-duplicate-evidence.md).
 
 ## С чего начать
 
@@ -36,6 +43,9 @@ Python-типы, persistence, JSON и CLI для неё ещё не реализ
 
 Модель нескольких наблюдений и изменений одной `PublicationRef` описана в
 [PUBLICATION-OBSERVATIONS-AND-CHANGES.md](docs/design/PUBLICATION-OBSERVATIONS-AND-CHANGES.md).
+
+Доказательная модель возможных дублей двух разных publications описана в
+[PUBLICATION-DUPLICATE-EVIDENCE.md](docs/design/PUBLICATION-DUPLICATE-EVIDENCE.md).
 
 Точные входные документы, матрица сценариев и правила golden-файлов описаны в [TEST-STRATEGY-AND-FIXTURES.md](docs/design/TEST-STRATEGY-AND-FIXTURES.md); фактические данные перечислены в [manifest fixtures v1](tests/fixtures/v1/MANIFEST.md).
 

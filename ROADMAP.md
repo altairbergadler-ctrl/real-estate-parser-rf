@@ -47,12 +47,17 @@
 - **TASK-017 — атомарное добавление набора observations в несколько histories.**
   Реализовать чистую атомарную операцию добавления набора observations в
   несколько независимых publication histories с глобально детерминированными
-  conflicts и без storage, JSON, CLI и изменений первого среза. Завершено в
-  task-ветке, готово к review/merge.
+  conflicts и без storage, JSON, CLI и изменений первого среза. Завершено и
+  слито в `main`.
 - **TASK-018 — доказательная модель возможных дублей публикаций.** Принять
   объяснимые положительные и отрицательные основания возможного совпадения,
   статус ручной проверки и границы неопределённости без программной
-  реализации, physical-property merge, storage или AI. Следующая
+  реализации, physical-property merge, storage или AI. Завершено в task-ветке,
+  готово к review/merge.
+- **TASK-019 — pure duplicate-pair assessment и manual-review types.**
+  Реализовать neutral frozen/slots duplicate-pair assessment, evidence и
+  manual-review types и чистую симметричную оценку одной пары по ADR 0006, без
+  batch/clustering, storage, JSON, CLI и изменений первого среза. Следующая
   рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.

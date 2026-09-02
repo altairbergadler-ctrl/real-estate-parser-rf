@@ -2,18 +2,19 @@
 
 ## Завершённая задача
 
-TASK-017 — чистая атомарная композиция непустого набора observations в
-несколько независимых publication histories. Frozen/slots контейнер хранит
-уникальные streams канонически, batch сворачивает exact duplicates и применяет
-уникальные keys через single-history append TASK-016, а любой глобально
-упорядоченный conflict set возвращается без partial histories, outcomes или
-`ChangeSet`.
+TASK-018 — design-only доказательная модель оценки двух разных source
+publications как возможных дублей. Неупорядоченная pair identity канонически
+задаётся двумя `PublicationRef`, assessment привязана к точным
+`AvailableObservation` и версии policy, supporting/contradicting evidence
+сохраняются одновременно, а manual review остаётся отдельной immutable
+revision без merge, clustering или утверждения физического объекта.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-017 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/017-atomic-observation-batch` сохраняет исходный
-  атомарный содержательный commit после безопасной интеграции.
+- TASK-018 завершена в короткоживущей ветке
+  `task/018-duplicate-evidence-model`, готова к review/merge и намеренно не
+  слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -174,28 +175,66 @@ TASK-017 — чистая атомарная композиция непусто
   same-key content/evidence conflicts, out-of-order нескольких streams, policy
   mismatch, atomic failure, permutation invariance, повторную идемпотентность и
   сохранение availability/reappearance semantics TASK-016.
+- ADR 0006: duplicate relation существует только как неупорядоченная pairwise
+  assessment двух разных `PublicationRef`; одинаковая reference запрещена, а
+  same-source и cross-source pairs разрешены симметрично.
+- Structural assessment identity включает canonical pair, точные
+  `ObservationKey` обеих available сторон и `publication-duplicate-policy@1`.
+  Exact replay является no-op; equal identity с другим содержимым — conflict.
+- Новое observation или версия policy создаёт новую assessment. Старая
+  сохраняет историческое объяснение, но stale относительно явного current
+  context; supersession задаётся отдельной immutable связью и не выводится из
+  времени молча.
+- Evidence item содержит stable rule id/version, polarity, policy-defined
+  categorical strength, поля, полные left/right canonical snapshots,
+  provenance обеих publications и safe reason code. Supporting и contradicting
+  evidence никогда не стирают друг друга.
+- `Missing`/`Unsupported` дают отдельный `RuleNonComparison`; unavailable side,
+  batch omission и operational failure assessment не создают. Различие
+  свободного location text, цены или времени не является отрицательным
+  duplicate evidence; price match остаётся auxiliary и само недостаточно.
+- Первая duplicate policy сравнивает в стабильном порядке `total_area`,
+  `rooms`, exact `location_text` и полную exact price/currency pair. Candidate
+  gate требует exact area и exact rooms либо location; material contradiction
+  при выполненном gate даёт отдельный conflicting manual-review outcome.
+- Aggregate имеет только `CANDIDATE_REQUIRES_MANUAL_REVIEW`,
+  `CONFLICTING_EVIDENCE_REQUIRES_MANUAL_REVIEW` и
+  `INSUFFICIENT_EVIDENCE_NO_CANDIDATE`; confirmed automatic outcome отсутствует.
+- Immutable manual review имеет supplied reviewed time, reviewer/reference
+  codes, outcome confirm/reject/inconclusive, rationale/evidence references и
+  строгую revision/supersedes semantics. Она не меняет automatic evidence,
+  source histories или видимость публикаций.
+- Pairwise relation явно нетранзитивна: `A~B` и `B~C` не создают `A~C`.
+  Physical property, connected components, automatic merge/collapse и
+  canonical winner запрещены текущим контрактом.
+- Полностью вымышленные scenarios спецификации покрывают symmetry, replay,
+  stale inputs, present provenance, missing/unsupported, mixed evidence,
+  insufficient input, same/cross-source, unavailable, все review outcomes,
+  supersession conflicts и non-transitivity.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Постоянное хранилище, repository adapter, expected revision и дедупликация.
-- Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
-  площадки.
+- Постоянное хранилище, repository adapter, expected revision implementation и
+  программная duplicate assessment.
+- Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
+  HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
 - Docker, CI, развёртывание, удалённый репозиторий и динамический загрузчик
   плагинов.
 
 ## Рекомендуемая следующая задача
 
-TASK-018 — принять доказательную модель возможных дублей публикаций с
-объяснимыми положительными и отрицательными основаниями, ручной проверкой и без
-программной реализации, physical-property merge, storage или AI. Это ровно
-следующий малый шаг; он не начат.
+TASK-019 — реализовать neutral frozen/slots duplicate-pair assessment,
+evidence и manual-review types и чистую симметричную оценку одной пары по ADR
+0006, без batch/clustering, storage, JSON, CLI и изменений первого среза. Это
+ровно следующий малый шаг; он не начат.
 
 ## Открытые архитектурные вопросы
 
-- Когда и на каких доказательствах вводить сущность или группу физического
-  объекта для дедупликации?
+- Понадобится ли когда-либо сущность физического объекта после измерения
+  качества independent pair assessments, и какие доказательства разрешат
+  отдельный пересмотр ADR 0006?
 - Какое постоянное хранение потребуется и какие измеренные требования определят
   его выбор?
 - Понадобится ли отдельный backfill/recompute workflow для доказанных

@@ -17,6 +17,10 @@ JSON-документ или таблица базы данных.
 недоступность и reappearance. Physical property identity, cross-source dedup,
 постоянное хранение и источник данных остаются вне модели.
 
+Последующая [спецификация TASK-018](PUBLICATION-DUPLICATE-EVIDENCE.md) может
+ссылаться на точные `AvailableObservation` двух независимых streams, но не
+изменяет их identity, ordering, replay или unavailable semantics.
+
 ## Термины и инварианты identity
 
 ### Поток наблюдений
@@ -438,4 +442,6 @@ filesystem, JSON, транзакционный API или схему мигра�
 - backfill и пересчёт истории при out-of-order данных;
 - сравнение reappearance с последним earlier available observation;
 - polling, scheduler, retries и реальные source checks;
-- physical property identity, cross-source dedup, уведомления и сигналы.
+- physical property identity, merge/clustering, уведомления и сигналы;
+- программная pairwise duplicate assessment; её design-only контракт принят в
+  [TASK-018](PUBLICATION-DUPLICATE-EVIDENCE.md).
