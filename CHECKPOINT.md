@@ -12,11 +12,11 @@ partial item outcomes.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-023 слиты в `main` отдельными merge-коммитами.
-- TASK-024 завершена только в
-  `task/024-duplicate-assessment-batch-design` и не слита в `main`.
+- TASK-001…TASK-024 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
+- Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
+  исходный атомарный documentation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
