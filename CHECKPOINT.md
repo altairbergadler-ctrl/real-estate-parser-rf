@@ -2,13 +2,13 @@
 
 ## Завершённая задача
 
-TASK-025 — pure duplicate-candidate assessment batch core. Neutral frozen/slots
-contracts и deterministic composition exact связывают готовый generation
-result, полный caller-supplied current available context и отдельную assessment
-policy. Phase-gated preflight гарантирует zero calls при любом structural
-conflict; valid pass вызывает existing single-pair operation ровно один раз на
-materialized candidate и атомарно возвращает complete ordered batch либо полный
-canonical downstream conflict set без partial item outcomes.
+TASK-026 — design consumer-owned persistence и replay boundary. ADR 0010
+принимает hybrid model: immutable observations и supplied human assertions
+authoritative в exact context, committed deterministic outputs сохраняются как
+version-bound audit artifacts, а current/index/quality views остаются
+rebuildable projections. Пять узких consumer-owned ports задают structural
+identity, exact replay, optimistic expected revisions, typed conflicts и
+all-or-nothing units без выбора storage technology или implementation.
 
 ## Состояние основной ветки
 
@@ -19,6 +19,9 @@ canonical downstream conflict set без partial item outcomes.
   исходный атомарный documentation commit после безопасной интеграции.
 - Короткоживущая ветка `task/025-duplicate-assessment-batch-core` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
+- TASK-026 завершена в
+  `task/026-persistence-replay-boundary-design`, но этой задачей не сливается в
+  `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -350,15 +353,66 @@ canonical downstream conflict set без partial item outcomes.
   strict mypy (`41 source files`), основной pytest `603 passed`, fixture catalog
   `44 passed`, frozen sync/lock, `git diff --check`, 47 relative Markdown links
   и changed-path/public-surface audits.
+- ADR 0010 однозначно принимает hybrid persistence model после сравнения с
+  history-only recompute и all-records-authoritative вариантами по
+  доказательности, воспроизводимости, стоимости, модульности, идемпотентности и
+  эксплуатации.
+- Authoritative publication state — immutable available/unavailable
+  observations; supplied manual-review revisions и control labels authoritative
+  только как human assertions в exact assessment/control context.
+- `ChangeSet`, generation results, pair/batch assessments, explicit
+  supersessions и committed control inputs остаются derived/version-bound, но
+  сохраняются immutable как audit, если участвовали в side effect. Quality
+  metrics, blocking coverage, current/stale, heads и indexes rebuildable.
+- `SourcePublicationSnapshot`/boundary batches не становятся автоматически
+  authoritative этой границы. Optional raw capture требует отдельного
+  legal/audit consumer contract.
+- Пять consumer-owned contracts разделяют observation histories, candidate
+  generation artifacts, assessment batch artifacts, manual-review revisions и
+  quality audit inputs; общий `Repository[T]` и storage-owned domain API
+  запрещены.
+- Common opaque `PersistenceRevision` относится только к exact stream/artifact
+  slot/head. Explicit `ExpectAbsent | ExpectExact` исключает unconditional
+  write и hidden last-write-wins; token не является временем или identity.
+- Commit protocol сначала проверяет structural identity/full content: exact
+  equal даёт `REPLAYED` без новой revision даже после lost response, equal
+  identity/different content даёт conflict, и только новая identity проходит
+  expected-revision check.
+- Multi-history append сохраняет все affected streams и immutable receipt одной
+  unit. Generation сохраняется только complete result; assessment batch
+  атомарно утверждает/сохраняет exact embedded generation и все pair outcomes.
+  Manual review атомарно сохраняет revision, supersedes edge и head.
+- `outcome_unknown` требует exact identity read/reconciliation. Observable
+  recovery state — вся unit либо ничего; stale revision ведёт к reload и
+  повторному pure computation, не к замене token без recompute.
+- Same-policy recompute обязан быть structurally equal. Новые observation keys,
+  limit или policy создают новую identity; старые audit records сохраняются,
+  supersession только explicit.
+- Derived historical backfill разрешён только как materialization отсутствующей
+  exact identity. Normal observation out-of-order/correction bypass отсутствует
+  и требует нового ADR.
+- Retention запрещает routine overwrite/delete observations, reviews,
+  committed audit artifacts, receipts, supersession links и lineage. Только
+  rebuildable projections можно безопасно пересоздавать.
+- Design задаёт stable port-specific conflict categories/subjects и canonical
+  order, minimal exact reads будущего executor и fully fictional matrix first
+  write/retry/stale/concurrency/conflict/recompute/interruption/no-partial cases.
+- Финальный TASK-026 quality gate успешен: Ruff format-check (`95 files`),
+  Ruff lint, strict mypy (`41 source files`), основной pytest (`603 passed`),
+  fixture catalog `44 passed`, frozen sync/lock, `git diff --check`, 59
+  relative Markdown links и changed-path audit.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Постоянное хранилище, repository adapter, expected revision implementation,
-  blocking/indexing и сохранение duplicate candidates/assessments/reviews/
-  control sets.
-- Side-effecting duplicate-assessment execution, persistence и consumer-owned
-  replay/content-conflict integration.
+- Python persistence port contracts, in-memory/durable adapter и expected
+  revision implementation.
+- SQL/JSON/filesystem schema, ORM, migrations, transaction manager, cache,
+  queue, scheduler, distributed lock и выбор storage technology.
+- Side-effecting production executor/orchestrator, ingestion run и retry/backoff
+  implementation.
+- Raw source capture, legal retention/deletion, observation correction/backfill
+  и multi-policy history migration.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -367,18 +421,18 @@ canonical downstream conflict set без partial item outcomes.
 
 ## Рекомендуемая следующая задача
 
-После TASK-025 в действующем плане нет единственной однозначной малой задачи.
-Следующий scope должен быть выбран отдельно; TASK-025 не принимает молча
-решение между side-effecting execution contract, persistence boundary и иным
-продолжением.
+TASK-027 — реализовать neutral Python port contracts и deterministic in-memory
+reference adapter по ADR 0010 с exact replay, optimistic revision и atomic
+failures, без SQL/JSON/filesystem/CLI/real data и без side-effecting production
+executor.
 
 ## Открытые архитектурные вопросы
 
 - Понадобится ли когда-либо сущность физического объекта после измерения
   качества independent pair assessments, и какие доказательства разрешат
   отдельный пересмотр ADR 0006?
-- Какое постоянное хранение потребуется и какие измеренные требования определят
-  его выбор?
+- Какое durable хранение потребуется после reference adapter и какие измеренные
+  объём, read patterns, retention и concurrency определят его выбор?
 - Понадобится ли отдельный backfill/recompute workflow для доказанных
   out-of-order наблюдений, и как он будет версионировать пересчитанные changes?
 - Какие правила законного и бережного получения данных обязательны для первого
@@ -387,9 +441,11 @@ canonical downstream conflict set без partial item outcomes.
   нескольких исходных полей?
 - Какой bucket pair limit оправдают будущие fully fictional benchmarks и
   reviewed blocking coverage без превращения числа в универсальную константу?
-- Потребуется ли после pure TASK-025 отдельный side-effecting execution
-  contract, и какие transaction/idempotency guarantees позволят безопасно
-  пересмотреть continue-after-downstream-failure semantics?
+- Какой отдельный side-effecting execution contract потребуется после TASK-027
+  и какие operational retry/backoff/observability правила не должны проникать
+  в consumer-owned persistence ports?
+- Потребуется ли legal/audit raw source capture, и какие retention/deletion
+  требования разрешат отдельный upstream port?
 
 Ответы не должны приниматься молча: существенные решения оформляются в
 `docs/decisions/` в рамках назначенных задач.

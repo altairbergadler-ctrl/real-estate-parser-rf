@@ -1,6 +1,6 @@
 # TASK-025 — pure duplicate-candidate assessment batch core
 
-- Статус: завершено в task-ветке, не слито в `main`
+- Статус: завершено и слито в `main`
 - Рабочая ветка: `task/025-duplicate-assessment-batch-core`
 - Целевая ветка: `main`
 - Стартовый SHA: `3c6674603230b878067fe573328fe73caf16392a`
@@ -123,10 +123,9 @@ composition по ADR 0009 для exact binding готового
 
 ## Итог
 
-TASK-025 реализует только pure in-memory batch composition по ADR 0009.
-Storage, external boundaries, side effects, real data, physical-property и
-transitive semantics намеренно отсутствуют. Ветка не сливается в `main` этой
-задачей.
+TASK-025 реализует только pure in-memory batch composition по ADR 0009 и слита
+в `main` merge-коммитом `c43642b`. Storage, external boundaries, side effects,
+real data, physical-property и transitive semantics намеренно отсутствуют.
 
 ## Итоговый коммит
 

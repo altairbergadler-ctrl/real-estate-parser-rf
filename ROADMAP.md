@@ -88,12 +88,21 @@
   Реализовать exact generation/current binding, separate policy identities,
   zero-call preflight, one-call-per-candidate composition и atomic full
   downstream conflict pass без storage, external boundaries или изменения
-  candidate/assessment policies. Завершено в
-  `task/025-duplicate-assessment-batch-core`, не слито в `main`.
+  candidate/assessment policies. Завершено и слито в `main`.
+- **TASK-026 — design consumer-owned persistence и replay boundary.** Принять
+  hybrid authority/retention model, узкие ports, structural identity, exact
+  replay, optimistic expected revisions, atomic multi-history/duplicate/review
+  units, recompute и retention без выбора storage technology, implementation
+  или side-effecting executor. Завершено в
+  `task/026-persistence-replay-boundary-design`, не слито в `main`.
+- **TASK-027 — neutral Python persistence ports и in-memory reference
+  adapter.** Реализовать ADR 0010 с exact replay, optimistic revision и atomic
+  failures без SQL/JSON/filesystem/CLI/real data и без side-effecting production
+  executor. Следующая рекомендуемая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
-- Позднее сохранить и использовать историю наблюдений через отдельно выбранный
-  infrastructure adapter.
+- Позднее выбрать и реализовать durable infrastructure adapter по измеренным
+  требованиям, не меняя consumer-owned contracts ADR 0010 молча.
 
 ## Этап 4. Источники и эксплуатационный контур
 

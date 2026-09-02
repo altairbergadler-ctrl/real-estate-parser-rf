@@ -206,13 +206,29 @@ explicit assessment policy. Downstream conflicts собираются полны
 result, full assessment policy и ordered exact bound assessments; blocking
 matches остаются только routing metadata.
 
+TASK-026 design-only принимает consumer-owned persistence/replay boundary в
+[ADR 0010](docs/decisions/0010-publication-persistence-and-replay.md) и
+[детальной спецификации](docs/design/PUBLICATION-PERSISTENCE-AND-REPLAY.md).
+Authoritative state ограничен immutable available/unavailable observations и
+supplied human assertions в их точном контексте. Deterministic generation,
+assessment и version-bound control artifacts остаются derived, но committed
+экземпляр, использованный side-effecting workflow, сохраняется как immutable
+audit; current/stale, heads/indexes и quality metrics являются rebuildable
+projections. Пять небольших consumer-owned ports задают explicit expected
+revisions, exact replay до stale-revision conflict, equal-identity/different-
+content conflicts и отдельные all-or-nothing units для multi-history append,
+generation/assessment и manual-review revision без generic repository или
+выбора storage technology.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, side-effecting assessment execution,
-clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
-OpenClaw, Telegram и публикация удалённого репозитория. Candidate policy не
-выбирает bucket limit, не запускает assessment и не заявляет production recall,
-репрезентативность или юридическую допустимость сбора. Выбор Python-базиса не
-является выбором всех будущих инфраструктурных компонентов: они добавляются
-только по подтверждённой потребности. Соблюдение правовых требований, условий
-площадок, ограничений на сбор и хранение данных будет конкретизировано до
-реализации реальных источников.
+реальный persistence adapter, side-effecting assessment execution, clustering,
+база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw,
+Telegram и публикация удалённого репозитория. Persistence design не выбирает
+SQL/JSON/filesystem schema, transaction manager, cache, queue, scheduler или
+distributed lock. Candidate policy не выбирает bucket limit, не запускает
+assessment и не заявляет production recall, репрезентативность или юридическую
+допустимость сбора. Выбор Python-базиса не является выбором всех будущих
+инфраструктурных компонентов: они добавляются только по подтверждённой
+потребности. Соблюдение правовых требований, условий площадок, ограничений на
+сбор и хранение данных будет конкретизировано до реализации реальных
+источников.

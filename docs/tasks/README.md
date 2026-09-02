@@ -91,5 +91,10 @@
 - [TASK-025](TASK-025.md) — neutral frozen/slots batch/item contracts и pure
   deterministic atomic assessment всех materialized candidates с exact
   generation/current binding, zero-call preflight и full downstream conflict
-  pass без storage, external boundaries или изменения policies; завершено в
-  task-ветке, не слито в `main`.
+  pass без storage, external boundaries или изменения policies; завершено и
+  слито в `main`.
+- [TASK-026](TASK-026.md) — design-only hybrid authority/retention model,
+  consumer-owned persistence ports, exact replay, optimistic revisions,
+  atomic multi-history/duplicate/review units и safe recompute без выбора
+  storage technology или implementation; завершено в task-ветке, не слито в
+  `main`.
