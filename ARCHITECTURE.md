@@ -224,9 +224,25 @@ transaction API отсутствуют. Reference adapter выдаёт opaque re
 generation/assessment/review/quality operations и не определяет
 production orchestration или durable technology.
 
+TASK-028 добавляет не runtime boundary, а обязательный acquisition gate первого
+реального источника. Для ЦИАН принят
+[ADR 0011](docs/decisions/0011-cian-read-only-pilot-contract.md) и
+[детальный pilot contract](docs/design/CIAN-READ-ONLY-PILOT-CONTRACT.md) со
+статусом `CONDITIONAL_GO`: никакой network source adapter не может существовать
+до письменного разрешения на exact public-listings search use case,
+официального documented API/outbound feed, method-specific квоты, field
+allowlist и retention/deletion условий. API-key, HTML, browser automation,
+published internal path, входящий XML import и успешный HTTP response не
+являются допустимым route. Этот gate находится перед source adapter и не
+проникает в domain/persistence contracts.
+
 ## Модули и ответственность
 
-- **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
+- **Источники** получают сырые объявления и метаданные происхождения. Каждый
+  источник изолирует особенности площадки за общим входным контрактом и до
+  реализации имеет отдельный versioned legal/ethical/technical acquisition
+  gate. Для ЦИАН gate пока запрещает live access; future adapter допустим только
+  после снятия всех blockers ADR 0011.
 - **Нормализация** преобразует сырые значения в каноническое представление, не скрывая исходные данные и неопределённость.
 - **Устранение дублей** pairwise оценивает две независимые публикации как
   возможный relationship: bounded exact blocking сначала формирует объяснимые

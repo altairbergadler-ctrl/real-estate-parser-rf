@@ -101,3 +101,8 @@
   consumer-owned Protocol ports и deterministic in-memory reference adapter с
   replay-before-revision, optimistic expectations и atomic commits без durable
   technology, I/O и production executor; завершено и слито в `main`.
+- [TASK-028](TASK-028.md) — design/research контракт ограниченного read-only
+  пилота ЦИАН со статусом `CONDITIONAL_GO`: live access запрещён до письменного
+  public-listings permission, official route, method-specific quota,
+  PII-safe fields и retention/deletion evidence; завершено в рабочей ветке,
+  не слито в `main`.

@@ -2,17 +2,19 @@
 
 ## Завершённая задача
 
-TASK-027 — neutral persistence ports и deterministic in-memory reference
-adapter. Пять consumer-owned runtime-checkable Protocol contracts реализуют
-ADR 0010 через exact typed reads, replay-before-revision, explicit optimistic
-expectations, immutable audit units и port-specific atomic failures. Reference
-adapter выдаёт opaque deterministic revisions, не выполняет pure
-operations за consumer и не вводит durable technology или production
-executor.
+TASK-028 — design/research контракт ограниченного read-only пилота ЦИАН.
+Принят [ADR 0011](docs/decisions/0011-cian-read-only-pilot-contract.md) со
+статусом `CONDITIONAL_GO`: controlled live pilot сейчас запрещён. Published
+API относится к объявлениям самого агентства и входящему XML-импорту, а не к
+public catalog search. Единственный потенциальный route — письменное
+разрешение ЦИАН на exact public-listings use case и официальный documented
+API/outbound feed с method-specific quota, PII-safe fields и retention terms.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-027 слиты в `main` отдельными merge-коммитами.
+- TASK-028 завершена одним design-only результатом в
+  `task/028-cian-read-only-pilot-contract`, но намеренно не слита в `main`.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
@@ -435,6 +437,36 @@ executor.
   основной pytest `618 passed`, fixture catalog `44 passed`, frozen sync/lock,
   `git diff --check`, relative Markdown links и changed-path/public-surface
   audits.
+- ADR 0011 сравнивает official/partner access, HTML/browser scraping и
+  разрешённый outbound XML/feed и принимает только conditional official route.
+- Official site/API terms, license, OpenAPI schema и robots checked
+  2026-09-02 без обращения к search/listing/card/data endpoints.
+- Published `get-my-offers`/detail относятся к объявлениям агентства;
+  XML methods — к входящему импорту. Documented public-listings search/read
+  method для внешнего продукта отсутствует.
+- API-key не заменяет preliminary permission exact use case. Общая
+  рекомендация `<=10 requests/s/method` с оговоркой о method-specific
+  значениях не является достаточной квотой отсутствующего target route.
+- Статус `CONDITIONAL_GO` означает текущий запрет live access. HTML, browser
+  automation, internal/undocumented endpoint, CAPTCHA/proxy/cookie/session и
+  protection bypass имеют `NO_GO`.
+- Семь blockers требуют written public-listings permission, documented route,
+  field/use/attribution rights, method-specific limits, PII-safe shape,
+  retention/sample terms и fresh rules/schema/robots audit.
+- Future pilot ceiling: один заранее frozen query, одна request, одна page,
+  максимум 20 records, strict structured allowlist, zero retry/parallel/
+  scheduler/AI/browser. Free text, images, contacts, account identifiers и
+  inference о владельце за границей запрещены.
+- Raw capture по умолчанию запрещён. Provider-supplied synthetic/redacted
+  sample предпочтителен; явно разрешённый minimal real sample хранится вне Git
+  не более 7 дней/до TASK-029 и удаляется с safe receipt.
+- Реальные объявления, contacts, images, text, keys/secrets, source code,
+  dependencies, fixtures и domain contracts TASK-028 не изменяла.
+- Финальный TASK-028 quality gate успешен: frozen sync/lock, Ruff
+  format-check (`102 files`), Ruff lint, strict mypy (`44 source files`),
+  основной pytest `618 passed`, fixture catalog `44 passed`,
+  `git diff --check`, 62 relative Markdown links, exact 8-file changed-path и
+  sensitive/real-data/source-evidence audits.
 
 ## Что намеренно не реализовано
 
@@ -446,6 +478,9 @@ executor.
   implementation.
 - Raw source capture, legal retention/deletion, observation correction/backfill
   и multi-policy history migration.
+- Аккаунт/API-key/письменное разрешение ЦИАН, public-listings API/outbound feed,
+  saved sample и любое обращение в поддержку/продажи.
+- Offline source adapter TASK-029 и controlled live pilot ЦИАН.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -454,13 +489,13 @@ executor.
 
 ## Рекомендуемая следующая задача
 
-TASK-028 — выбрать первый реальный источник и принять
-legal/ethical/technical контракт ограниченного read-only пилота:
-разрешённый способ доступа, rate limits, минимальный набор данных,
-блокировки, персональные данные, stop conditions и доказательства соблюдения
-правил. Без scraper/source adapter и без сбора real data. Задача не
-начата и требует отдельного подтверждения пользователем источника и
-использования сети.
+Не начинать implementation, пока пользователь отдельно не получит от ЦИАН
+полный evidence package `B1`–`B6` из
+[pilot contract](docs/design/CIAN-READ-ONLY-PILOT-CONTRACT.md). После полного
+подтверждения и fresh `B7` отдельная TASK-029 может реализовать только offline
+adapter на provider-supplied synthetic/redacted либо явно разрешённом
+сохранённом примере, без live access. Controlled live pilot остаётся более
+поздней отдельной задачей.
 
 ## Открытые архитектурные вопросы
 
@@ -471,8 +506,9 @@ legal/ethical/technical контракт ограниченного read-only п
   объём, read patterns, retention и concurrency определят его выбор?
 - Понадобится ли отдельный backfill/recompute workflow для доказанных
   out-of-order наблюдений, и как он будет версионировать пересчитанные changes?
-- Какие правила законного и бережного получения данных обязательны для первого
-  реального источника?
+- Предоставит ли ЦИАН письменное разрешение на external public-listings search,
+  documented route/feed, field rights, exact quota и retention/sample terms,
+  достаточные для снятия blockers TASK-028?
 - Когда составному нормализованному значению понадобится происхождение из
   нескольких исходных полей?
 - Какой bucket pair limit оправдают будущие fully fictional benchmarks и

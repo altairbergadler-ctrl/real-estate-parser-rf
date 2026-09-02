@@ -229,6 +229,19 @@ generation/assessment, manual-review и quality audit units. Adapter не
 выполняет pure generation, assessment, review или quality operations за
 consumer и не является production executor или durable storage.
 
+TASK-028 design-only выбирает ЦИАН первым исследуемым реальным источником и
+принимает [ADR 0011](docs/decisions/0011-cian-read-only-pilot-contract.md) с
+итогом `CONDITIONAL_GO`. Published API на дату проверки предоставляет методы
+для объявлений самого агентства, связанных статистики/сообщений и входящего
+XML-импорта, но не documented public-listings search/read route для внешнего
+поискового продукта. Site/API terms требуют предварительного разрешения на
+автоматизированный сбор; API-key и общая рекомендация `<=10 requests/s/method`
+с method-specific оговоркой недостаточны. Live access, HTML/browser scraping и
+undocumented endpoints запрещены. Единственный потенциальный route —
+письменно разрешённый официальный API либо outbound partner feed с exact
+scope, fields, quotas, retention и deletion. Подробный gate задан в
+[контракте пилота ЦИАН](docs/design/CIAN-READ-ONLY-PILOT-CONTRACT.md).
+
 В текущий объём по-прежнему не входят запись JSON на диск, durable storage,
 production persistence adapter, side-effecting assessment execution, clustering,
 база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw,
@@ -238,9 +251,11 @@ distributed lock. Candidate policy не выбирает bucket limit, не за
 assessment и не заявляет production recall, репрезентативность или юридическую
 допустимость сбора. Следующий выход к реальным данным начинается не со
 scraper, а с отдельного выбора первого источника и принятия его
-legal/ethical/technical контракта; TASK-028 требует отдельного
-подтверждения пользователем источника и использования сети. Выбор Python-базиса не является выбором всех будущих
-инфраструктурных компонентов: они добавляются только по подтверждённой
-потребности. Соблюдение правовых требований, условий площадок, ограничений на
-сбор и хранение данных будет конкретизировано до реализации реальных
-источников.
+legal/ethical/technical контракта. Этот gate выполнен для ЦИАН только как
+`CONDITIONAL_GO`: до письменного разрешения, documented public-listings route,
+method-specific quota и PII/retention условий не начинается ни offline
+TASK-029, ни тем более controlled live pilot. Выбор Python-базиса не является
+выбором всех будущих инфраструктурных компонентов: они добавляются только по
+подтверждённой потребности. Соблюдение правовых требований, условий площадок,
+ограничений на сбор и хранение данных будет конкретизировано до реализации
+реальных источников.
