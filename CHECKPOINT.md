@@ -2,19 +2,21 @@
 
 ## Завершённая задача
 
-TASK-021 — design-only bounded duplicate candidate generation. Отдельная
-`publication-duplicate-candidate-policy@1` использует ровно два exact blocking
-passes, whole-bucket oversized outcome и stable union без global all-pairs
-fallback. Candidate identity связывает canonical pair и exact current
-observation keys; blocking coverage измеряет только eligible confirmed cases
-supplied fully fictional control population и сохраняет отдельные
-PairNotAssessed/outside/stale counts.
+TASK-022 — pure bounded duplicate candidate generation. Отдельный neutral
+frozen/slots-модуль реализует `publication-duplicate-candidate-policy@1` с
+ровно двумя exact typed passes, atomic validation явного current input,
+Missing/Unsupported non-participation, whole-bucket oversized outcomes и
+policy-ordered union candidates. Generation не вызывает assessment и не
+реализует blocking coverage.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-021 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/021-duplicate-candidate-design` сохраняет исходный
   атомарный documentation commit после безопасной интеграции.
+- TASK-022 завершена в `task/022-duplicate-candidate-core` от exact стартового
+  SHA `e5423f0550b1469308ee1e254844c0d21bed638f`; ветка намеренно не слита в
+  `main` и не опубликована.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -264,13 +266,34 @@ PairNotAssessed/outside/stale counts.
   eligible confirmed denominator, no-shared/oversized misses, отдельные
   PairNotAssessed/outside/stale counts и typed unavailable reasons для
   inconclusive labels/нулевого denominator.
+- Neutral frozen/slots candidate-generation types: отдельные safe policy/rule/
+  reason codes, exact `AreaRoomsBlockingKey` и
+  `AreaLocationTextBlockingKey`, component/rule non-participation,
+  `BucketPairLimit`, whole `OversizedBucket`, candidate/generation identities,
+  full result и atomic success/failure conflicts.
+- Immutable `PUBLICATION_DUPLICATE_CANDIDATE_POLICY_V1` с exact version
+  `publication-duplicate-candidate-policy@1` и ровно двумя rules ADR 0008 в
+  фиксированном порядке.
+- Pure `generate_duplicate_candidates` атомарно проверяет tuple current
+  observations, availability, full-key content и one-reference invariant,
+  затем канонизирует input и создаёт максимум две exact memberships на
+  observation.
+- Каждый bucket сначала получает integer `n * (n - 1) // 2`; count выше
+  caller limit целиком создаёт oversized outcome и zero pairs, count на
+  границе полностью materializes. Multi-pass union сохраняет только
+  materialized blocking matches и допускает successful empty candidates.
+- 49 fully fictional direct tests покрывают policy/contracts, atomic conflicts,
+  both/single passes, same/cross-source, Missing/Unsupported, exact boundary,
+  no-first-N oversized skip, alternate route, permutation/new-key identity,
+  immutability, exact bound и отсутствие assessment/I/O/storage surface.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
 - Постоянное хранилище, repository adapter, expected revision implementation,
-  исполняемая batch pair generation, blocking/indexing и сохранение duplicate
-  candidates/assessments/reviews/control sets.
+  blocking/indexing и сохранение duplicate candidates/assessments/reviews/
+  control sets.
+- Pure blocking-coverage evaluator TASK-023 и batch execution pair assessment.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -279,7 +302,7 @@ PairNotAssessed/outside/stale counts.
 
 ## Рекомендуемая следующая задача
 
-TASK-022 — реализовать neutral frozen/slots blocking/candidate types и pure deterministic generation по ADR 0008 для explicit available observations с oversized-bucket outcomes, без storage, JSON, CLI, real data или pair assessment
+TASK-023 — реализовать pure exact blocking-coverage evaluation по ADR 0008 поверх DuplicatePolicyControlSet и DuplicateCandidateGenerationResult с typed unavailable/conflict outcomes, без storage, JSON, CLI, real data или изменения generation/assessment policies
 
 ## Открытые архитектурные вопросы
 
