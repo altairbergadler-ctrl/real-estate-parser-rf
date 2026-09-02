@@ -167,6 +167,16 @@ prospective count до pair materialization; допустимые buckets раз
 first-N. Candidate union не вызывает assessment и не создаёт evidence,
 outcome, storage/index или blocking coverage.
 
+TASK-023 добавляет отдельную pure composition над публичными contracts
+TASK-019/020/022. Она не повторяет generation или assessment: exact snapshots
+готовой assessment определяют общие v1 blocking keys, а canonical generation
+identity, candidates и oversized outcomes определяют eligibility и coverage.
+Все disjoint counts и разные policy identities сохраняются в одном immutable
+success; отсутствие candidate при общем non-oversized key атомарно возвращает
+только canonical coverage conflicts без partial metric. Эта композиция не
+вводит I/O, storage/index, hidden all-pairs scan, physical property, merge или
+cluster и не интерпретирует fictional coverage как production recall.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.

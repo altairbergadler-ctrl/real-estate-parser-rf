@@ -76,5 +76,10 @@
 - [TASK-022](TASK-022.md) — neutral frozen/slots exact blocking/candidate
   contracts и pure bounded deterministic generation с atomic current-input
   validation, whole-bucket oversized outcomes и policy-ordered union без
-  assessment, coverage, storage или external boundaries; завершено в
+  assessment, coverage, storage или external boundaries; завершено и слито в
+  `main`.
+- [TASK-023](TASK-023.md) — neutral frozen/slots exact candidate blocking
+  coverage поверх готовых control/generation contracts с disjoint counts,
+  typed unavailable и atomic inconsistent-result failure без повторного
+  generation/assessment, storage или external boundaries; завершено в
   task-ветке, не слито в `main`.
