@@ -88,6 +88,17 @@ out-of-order key являются конфликтами. Точные типы 
 Конкретное хранилище остаётся внешним адаптером будущего consumer-owned port и
 этой задачей не выбирается.
 
+TASK-016 реализует эту семантику одним нейтральным модулем ядра. Frozen/slots
+`PublicationObservationHistory` хранит tuple строго возрастающих available и
+доказательно unavailable observations одной `PublicationRef` и версии policy.
+Чистые `compare_consecutive_observations` и `append_observation` не знают
+Pydantic, JSON, filesystem, CLI или storage: они возвращают immutable
+`ChangeSet`, exact replay либо стабильный atomic conflict без partial history.
+Первая policy сравнивает только шесть утверждённых полей, исключает координату
+`ObservedAt` из изменения provenance и не превращает missing field или
+операционную ошибку в недоступность публикации. Batch/multi-history composition
+остаётся отдельной прикладной операцией следующей задачи.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.

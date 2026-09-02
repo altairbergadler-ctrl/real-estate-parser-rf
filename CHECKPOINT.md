@@ -2,15 +2,17 @@
 
 ## Завершённая задача
 
-TASK-015 — документальная модель повторных наблюдений и изменений одной source
-publication. ADR 0005 и отдельная design-спецификация принимают identity и
-порядок observation stream, exact replay и конфликты, версионированный
-`ChangeSet`, доказательную недоступность и reappearance без Python-реализации и
-без выбора хранилища.
+TASK-016 — нейтральное immutable-ядро повторных наблюдений и изменений одной
+source publication. Frozen/slots типы реализуют observation identity, history,
+field/availability changes, доказательную недоступность и стабильные conflicts,
+а чистые операции сравнивают последовательные observations и атомарно добавляют
+ровно один кандидат без Python boundary или выбора хранилища.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-015 слиты в `main` отдельными merge-коммитами.
+- TASK-016 завершена в `task/016-observation-change-core`, готова к отдельному
+  review/merge и намеренно не слита в `main`.
 - Короткоживущая ветка `task/015-observation-change-model` сохраняет исходный
   атомарный documentation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
@@ -133,12 +135,35 @@ publication. ADR 0005 и отдельная design-спецификация пр
   unavailable от недоказанных deleted/expired claims, минимальный pure API,
   стабильные conflict codes и consumer contract будущего atomic repository
   port без выбора технологии.
+- Нейтральные frozen/slots `ComparisonPolicyVersion`,
+  `AvailabilityRuleVersion`, `ObservationKey`, available/unavailable
+  observations, два достаточных evidence-типа и строго возрастающая
+  `PublicationObservationHistory` одной `PublicationRef` и policy version.
+- Immutable `FieldSnapshot`, взаимоисключающие `FieldDeltaKind`, availability
+  transitions, `AvailabilityEvidenceDelta`, `ChangeSet`, стабильные
+  `ObservationConflict` и атомарные append success/failure без partial
+  результатов.
+- Явная `PUBLICATION_CHANGE_POLICY_V1` с порядком `source_url`,
+  `location_text`, `price_amount`, `currency`, `total_area`, `rooms` и
+  канонической проекцией `Present`/`Missing`/`Unsupported(reason_code)`.
+- Чистая `compare_consecutive_observations`: available pair сравнивает ровно
+  шесть полей с приоритетом substantive, raw-only и provenance refresh;
+  timestamp-only даёт пустой `ChangeSet`; availability transitions не
+  выполняют field comparison; repeated unavailable сравнивает только evidence.
+- Чистая `append_observation`: exact replay любого принятого key возвращает
+  исходную history, неизвестный новый key принимается только после tail, а
+  reference/timestamp/order/policy conflicts атомарны. Первый append не создаёт
+  `ChangeSet`, остальные сравниваются только с непосредственным predecessor.
+- Прямые полностью вымышленные exhaustive unit-тесты проверяют конструкторные
+  инварианты, все шесть полей, полную матрицу outcome transitions, reason/raw/
+  provenance/timestamp semantics, append/replay/conflicts, unavailable,
+  reappearance, immutability и отсутствие partial failure state.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Python-типы и операции нескольких наблюдений, постоянное хранилище,
-  repository adapter, фактическая история изменений и дедупликация.
+- Batch/multi-history append, постоянное хранилище, repository adapter и
+  дедупликация.
 - Физический объект недвижимости, база данных, API, HTTP, HTML и реальные
   площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -147,10 +172,10 @@ publication. ADR 0005 и отдельная design-спецификация пр
 
 ## Рекомендуемая следующая задача
 
-TASK-016 — реализовать neutral frozen/slots observation/change types и чистую
-детерминированную операцию сравнения/добавления одного observation по ADR 0005,
-без хранилища, JSON, CLI и изменения первого среза. Это ровно следующий малый
-шаг; он не начат.
+TASK-017 — реализовать чистую атомарную операцию добавления набора observations
+в несколько независимых publication histories с глобально детерминированными
+conflicts и без storage, JSON, CLI и изменений первого среза. Это ровно
+следующий малый шаг; он не начат.
 
 ## Открытые архитектурные вопросы
 
