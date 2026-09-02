@@ -220,14 +220,26 @@ content conflicts и отдельные all-or-nothing units для multi-histor
 generation/assessment и manual-review revision без generic repository или
 выбора storage technology.
 
-В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-реальный persistence adapter, side-effecting assessment execution, clustering,
+TASK-027 реализует эту границу как нейтральные Python
+frozen/slots contracts и пять узких runtime-checkable Protocol ports.
+Deterministic in-memory reference adapter реализует exact reads,
+replay-before-revision, explicit `ExpectAbsent | ExpectExact`, immutable
+adapter-issued revisions и all-or-nothing commits для multi-history,
+generation/assessment, manual-review и quality audit units. Adapter не
+выполняет pure generation, assessment, review или quality operations за
+consumer и не является production executor или durable storage.
+
+В текущий объём по-прежнему не входят запись JSON на диск, durable storage,
+production persistence adapter, side-effecting assessment execution, clustering,
 база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw,
 Telegram и публикация удалённого репозитория. Persistence design не выбирает
 SQL/JSON/filesystem schema, transaction manager, cache, queue, scheduler или
 distributed lock. Candidate policy не выбирает bucket limit, не запускает
 assessment и не заявляет production recall, репрезентативность или юридическую
-допустимость сбора. Выбор Python-базиса не является выбором всех будущих
+допустимость сбора. Следующий выход к реальным данным начинается не со
+scraper, а с отдельного выбора первого источника и принятия его
+legal/ethical/technical контракта; TASK-028 требует отдельного
+подтверждения пользователем источника и использования сети. Выбор Python-базиса не является выбором всех будущих
 инфраструктурных компонентов: они добавляются только по подтверждённой
 потребности. Соблюдение правовых требований, условий площадок, ограничений на
 сбор и хранение данных будет конкретизировано до реализации реальных

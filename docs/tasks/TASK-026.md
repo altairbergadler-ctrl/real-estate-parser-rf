@@ -1,6 +1,6 @@
 # TASK-026 — design consumer-owned persistence и replay boundary
 
-- Статус: завершено в task-ветке, не слито в `main`
+- Статус: завершено и слито в `main`
 - Рабочая ветка: `task/026-persistence-replay-boundary-design`
 - Целевая ветка: `main`
 - Стартовый SHA: `e5b42769437863e195d4a5e1bbec390009f199c0`
@@ -143,4 +143,5 @@ quality/documentation audit. Точный SHA подтверждается Git �
 TASK-027 — реализовать neutral Python port contracts и deterministic in-memory
 reference adapter по ADR 0010 с exact replay, optimistic revision и atomic
 failures, без SQL/JSON/filesystem/CLI/real data и без side-effecting production
-executor.
+executor. Задача выполнена в `task/027-persistence-ports-in-memory`; в
+`main` ещё не слита.

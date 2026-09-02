@@ -93,12 +93,12 @@
   hybrid authority/retention model, узкие ports, structural identity, exact
   replay, optimistic expected revisions, atomic multi-history/duplicate/review
   units, recompute и retention без выбора storage technology, implementation
-  или side-effecting executor. Завершено в
-  `task/026-persistence-replay-boundary-design`, не слито в `main`.
+  или side-effecting executor. Завершено и слито в `main`.
 - **TASK-027 — neutral Python persistence ports и in-memory reference
   adapter.** Реализовать ADR 0010 с exact replay, optimistic revision и atomic
   failures без SQL/JSON/filesystem/CLI/real data и без side-effecting production
-  executor. Следующая рекомендуемая задача; не начата.
+  executor. Завершено в `task/027-persistence-ports-in-memory`; в `main`
+  не слито.
 
 - Добавить версионируемые правила нормализации.
 - Позднее выбрать и реализовать durable infrastructure adapter по измеренным
@@ -106,7 +106,13 @@
 
 ## Этап 4. Источники и эксплуатационный контур
 
-- Определить юридические, этические и технические ограничения для первого реального источника.
+- **TASK-028 — выбор первого реального источника и контракт
+  ограниченного read-only пилота.** Выбрать один источник и
+  принять legal/ethical/technical контракт: разрешённый способ доступа,
+  rate limits, минимальный набор данных, обработку блокировок и персональных
+  данных, stop conditions и доказательства соблюдения правил. Без
+  scraper/source adapter и без сбора real data. Не начата; требует
+  отдельного подтверждения пользователем источника и использования сети.
 - Реализовать первый адаптер источника без проникновения его особенностей в ядро.
 - Добавить ограничение частоты, повторные попытки, контроль ошибок и наблюдаемость.
 - Добавлять следующие источники по одному, подтверждая совместимость контрактов.
