@@ -1,6 +1,6 @@
 # TASK-024 — design pure atomic duplicate-candidate assessment batch
 
-- Статус: завершено в task-ветке, не слито в `main`
+- Статус: завершено и слито в `main`
 - Рабочая ветка: `task/024-duplicate-assessment-batch-design`
 - Целевая ветка: `main`
 - Стартовый SHA: `8d13bbca42ca5ed1fcd34199164a0a7ff6a21a33`
@@ -118,10 +118,10 @@ candidate pairs в существующую `assess_publication_pair`.
 
 ## Итог
 
-TASK-024 завершена только в
-`task/024-duplicate-assessment-batch-design` и намеренно не слита в `main`.
-Принят только design contract; implementation/tests, storage, external
-boundaries, physical-property semantics и TASK-025 не начинались.
+TASK-024 завершена и слита в `main` merge-коммитом
+`8e9d941`. Принят только design contract; implementation/tests реализованы
+отдельной TASK-025, а storage, external boundaries и physical-property
+semantics по-прежнему отсутствуют.
 
 ## Итоговый коммит
 

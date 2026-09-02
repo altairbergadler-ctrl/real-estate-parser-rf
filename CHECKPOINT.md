@@ -2,13 +2,13 @@
 
 ## Завершённая задача
 
-TASK-024 — design pure atomic duplicate-candidate assessment batch. ADR 0009 и
-детальная спецификация exact связывают готовый generation result, полный
-caller-supplied current available context и отдельную assessment policy.
-Preflight failure гарантирует zero assessment calls; valid pass вызывает
-existing single-pair operation ровно по materialized candidates и атомарно
-возвращает либо полный ordered batch, либо canonical downstream conflicts без
-partial item outcomes.
+TASK-025 — pure duplicate-candidate assessment batch core. Neutral frozen/slots
+contracts и deterministic composition exact связывают готовый generation
+result, полный caller-supplied current available context и отдельную assessment
+policy. Phase-gated preflight гарантирует zero calls при любом structural
+conflict; valid pass вызывает existing single-pair operation ровно один раз на
+materialized candidate и атомарно возвращает complete ordered batch либо полный
+canonical downstream conflict set без partial item outcomes.
 
 ## Состояние основной ветки
 
@@ -17,6 +17,9 @@ partial item outcomes.
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
   исходный атомарный documentation commit после безопасной интеграции.
+- TASK-025 завершена только в
+  `task/025-duplicate-assessment-batch-core`; её implementation commit
+  намеренно не слит в `main` этой задачей.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -323,6 +326,31 @@ partial item outcomes.
 - Composition bound равен `O(N + C)` lookup/binding плюс стоимость ровно `C`
   pair assessments; regeneration, all-pairs fallback, physical property,
   merge, cluster и transitive closure запрещены.
+- Neutral frozen/slots `DuplicateCandidateAssessmentBatchInput`, двух-policy
+  configuration, batch/item identities, exact item outcome, complete batch,
+  atomic success/failure и typed conflict subjects ADR 0009.
+- Pure `assess_duplicate_candidate_batch` принимает full generation result,
+  raw current tuple и explicit assessment policy; поддерживает только exact
+  full candidate policy v1 и assessment policy v1.
+- Phase-gated preflight различает unavailable/unsupported, same-key unequal
+  content, duplicate reference, missing generation key, extra current key и
+  same-reference current-key mismatch, затем defensive проверяет candidate
+  policy/pair/keys/uniqueness/order до первого assessment call.
+- Valid empty candidates дают complete success и zero calls. Каждый non-empty
+  supplied candidate получает ровно один existing pair call в canonical order
+  с exact full current sides; blocking matches не становятся evidence.
+- PairNotAssessed, pair failure, malformed success и unsupported downstream
+  result преобразуются в typed batch conflicts. Pure pass продолжается до
+  конца, но failure не содержит provisional items; success сохраняет full
+  generation result, full assessment policy и ordered exact assessments.
+- 33 fully fictional direct tests покрывают constructors, all preflight
+  conflicts, exact binding, call counts/order, empty/multiple/same/cross-source,
+  permutations, downstream full pass, replay/immutability, non-transitivity и
+  forbidden public surface.
+- Финальный TASK-025 quality gate успешен: targeted `33 passed`, Ruff,
+  strict mypy (`41 source files`), основной pytest `603 passed`, fixture catalog
+  `44 passed`, frozen sync/lock, `git diff --check`, 47 relative Markdown links
+  и changed-path/public-surface audits.
 
 ## Что намеренно не реализовано
 
@@ -330,7 +358,8 @@ partial item outcomes.
 - Постоянное хранилище, repository adapter, expected revision implementation,
   blocking/indexing и сохранение duplicate candidates/assessments/reviews/
   control sets.
-- Python implementation и tests pure atomic batch composition TASK-025.
+- Side-effecting duplicate-assessment execution, persistence и consumer-owned
+  replay/content-conflict integration.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -339,7 +368,10 @@ partial item outcomes.
 
 ## Рекомендуемая следующая задача
 
-TASK-025 — реализовать neutral frozen/slots batch-assessment contracts и pure deterministic composition по ADR 0009 для exact DuplicateCandidateGenerationResult/current AvailableObservation binding, без storage, JSON, CLI, real data или изменения candidate/assessment policies
+После TASK-025 в действующем плане нет единственной однозначной малой задачи.
+Следующий scope должен быть выбран отдельно; TASK-025 не принимает молча
+решение между side-effecting execution contract, persistence boundary и иным
+продолжением.
 
 ## Открытые архитектурные вопросы
 

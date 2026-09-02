@@ -195,8 +195,19 @@ candidate. Downstream conflicts собираются полным pure pass, н�
 batch не повторяет generation, не создаёт physical property, merge, cluster
 или transitive relation.
 
+TASK-025 реализует этот контракт отдельным neutral frozen/slots core-модулем.
+Phase-gated preflight атомарно проверяет exact full candidate/assessment
+policies, caller-supplied current available context, generation/current keys и
+каждый supplied candidate до первого pair call. Valid empty candidates дают
+complete empty success; остальные вызывают existing `assess_publication_pair`
+ровно один раз в canonical candidate order с exact full current sides и
+explicit assessment policy. Downstream conflicts собираются полным pure pass,
+но failure не содержит partial item outcomes. Success сохраняет full generation
+result, full assessment policy и ordered exact bound assessments; blocking
+matches остаются только routing metadata.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, реализация assessment batch,
+repository adapter, side-effecting assessment execution,
 clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
 OpenClaw, Telegram и публикация удалённого репозитория. Candidate policy не
 выбирает bucket limit, не запускает assessment и не заявляет production recall,

@@ -86,5 +86,10 @@
 - [TASK-024](TASK-024.md) — design-only pure atomic composition exact
   generation/current available context к existing pair assessment с separate
   policy identities, zero-call preflight и atomic downstream conflicts без
-  partial outcomes, storage или physical-property semantics; завершено в
+  partial outcomes, storage или physical-property semantics; завершено и слито
+  в `main`.
+- [TASK-025](TASK-025.md) — neutral frozen/slots batch/item contracts и pure
+  deterministic atomic assessment всех materialized candidates с exact
+  generation/current binding, zero-call preflight и full downstream conflict
+  pass без storage, external boundaries или изменения policies; завершено в
   task-ветке, не слито в `main`.
