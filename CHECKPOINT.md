@@ -2,16 +2,19 @@
 
 ## Завершённая задача
 
-TASK-023 — pure exact duplicate-candidate blocking coverage. Отдельный neutral
-frozen/slots-модуль измеряет только supplied fully fictional control population
-в exact generation context, сохраняет все disjoint eligibility/miss counts и
-возвращает exact ratio либо typed unavailable. Общий non-oversized key без
-exact candidate даёт atomic `generation_result_inconsistent` без partial
-metrics; generation и assessment не перезапускаются.
+TASK-024 — design pure atomic duplicate-candidate assessment batch. ADR 0009 и
+детальная спецификация exact связывают готовый generation result, полный
+caller-supplied current available context и отдельную assessment policy.
+Preflight failure гарантирует zero assessment calls; valid pass вызывает
+existing single-pair operation ровно по materialized candidates и атомарно
+возвращает либо полный ordered batch, либо canonical downstream conflicts без
+partial item outcomes.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-023 слиты в `main` отдельными merge-коммитами.
+- TASK-024 завершена только в
+  `task/024-duplicate-assessment-batch-design` и не слита в `main`.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
@@ -298,6 +301,28 @@ metrics; generation и assessment не перезапускаются.
   oversized alternate route, same/cross-source, eligibility order, label и
   PairNotAssessed counts, unavailable precedence, exact ratio, bindings,
   invariants, canonical conflicts, immutability и запрещённую surface.
+- ADR 0009 и design-спецификация отдельной pure atomic composition от exact
+  `DuplicateCandidateGenerationResult` и полного caller-supplied current
+  `AvailableObservation` context к existing `assess_publication_pair`.
+- Batch identity сохраняет exact generation identity и отдельную explicit
+  `DuplicatePolicyVersion`; full supported candidate policy v1 и assessment
+  policy v1 проверяются независимо и не выводятся друг из друга.
+- Current tuple-only non-empty available context канонизируется и exact
+  связывается с generation keys; missing generation key, extra current key и
+  new key той же reference имеют разные structural mismatch kinds.
+- Все preflight conflicts собираются до первого call и гарантируют zero calls;
+  valid empty candidates дают success с empty outcomes, а каждый non-empty
+  candidate вызывает single-pair assessment ровно один раз в canonical order.
+- Unexpected PairNotAssessed, downstream failure и malformed success дают
+  typed atomic batch conflicts. Pure pass продолжается для полного conflict
+  set, но failure никогда не содержит provisional successful item outcomes.
+- Success сохраняет full generation result binding, assessment policy и exact
+  ordered candidate/item assessments. Replay и equal-identity/different-
+  content conflicts не выбирают winner; blocking matches не становятся
+  evidence.
+- Composition bound равен `O(N + C)` lookup/binding плюс стоимость ровно `C`
+  pair assessments; regeneration, all-pairs fallback, physical property,
+  merge, cluster и transitive closure запрещены.
 
 ## Что намеренно не реализовано
 
@@ -305,7 +330,7 @@ metrics; generation и assessment не перезапускаются.
 - Постоянное хранилище, repository adapter, expected revision implementation,
   blocking/indexing и сохранение duplicate candidates/assessments/reviews/
   control sets.
-- Pure atomic batch composition candidate assessments TASK-024.
+- Python implementation и tests pure atomic batch composition TASK-025.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -314,7 +339,7 @@ metrics; generation и assessment не перезапускаются.
 
 ## Рекомендуемая следующая задача
 
-TASK-024 — спроектировать pure atomic batch composition от DuplicateCandidateGenerationResult и exact current AvailableObservation к assess_publication_pair с explicit binding/conflict semantics, без storage, JSON, CLI, real data или изменения candidate/assessment policies
+TASK-025 — реализовать neutral frozen/slots batch-assessment contracts и pure deterministic composition по ADR 0009 для exact DuplicateCandidateGenerationResult/current AvailableObservation binding, без storage, JSON, CLI, real data или изменения candidate/assessment policies
 
 ## Открытые архитектурные вопросы
 
@@ -331,6 +356,9 @@ TASK-024 — спроектировать pure atomic batch composition от Dup
   нескольких исходных полей?
 - Какой bucket pair limit оправдают будущие fully fictional benchmarks и
   reviewed blocking coverage без превращения числа в универсальную константу?
+- Потребуется ли после pure TASK-025 отдельный side-effecting execution
+  contract, и какие transaction/idempotency guarantees позволят безопасно
+  пересмотреть continue-after-downstream-failure semantics?
 
 Ответы не должны приниматься молча: существенные решения оформляются в
 `docs/decisions/` в рамках назначенных задач.

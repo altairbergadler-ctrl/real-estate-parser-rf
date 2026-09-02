@@ -182,8 +182,21 @@ non-oversized key без exact candidate даёт атомарный
 denominator имеют typed unavailable reasons. Метрика относится только к
 supplied fully fictional population и не заявляет production recall.
 
+TASK-024 design-only принимает отдельную pure atomic composition в
+[ADR 0009](docs/decisions/0009-duplicate-candidate-assessment-batch.md) и
+[детальной спецификации](docs/design/PUBLICATION-DUPLICATE-ASSESSMENT-BATCH.md).
+Она exact связывает готовый `DuplicateCandidateGenerationResult` с полным
+caller-supplied canonical context только из `AvailableObservation` и отдельно
+переданной `publication-duplicate-policy@1`. Все preflight conflicts дают zero
+assessment calls; valid input вызывает существующую
+`assess_publication_pair` ровно один раз для каждого и только materialized
+candidate. Downstream conflicts собираются полным pure pass, но failure не
+содержит partial item outcomes. Blocking matches остаются routing metadata, а
+batch не повторяет generation, не создаёт physical property, merge, cluster
+или transitive relation.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, assessment batch,
+repository adapter, реализация assessment batch,
 clustering, база данных, API, интерфейс, парсеры реальных площадок, Docker, ИИ,
 OpenClaw, Telegram и публикация удалённого репозитория. Candidate policy не
 выбирает bucket limit, не запускает assessment и не заявляет production recall,
