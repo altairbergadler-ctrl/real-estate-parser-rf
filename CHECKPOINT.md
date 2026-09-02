@@ -11,12 +11,9 @@ policy-ordered union candidates. Generation не вызывает assessment и 
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-021 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/021-duplicate-candidate-design` сохраняет исходный
-  атомарный documentation commit после безопасной интеграции.
-- TASK-022 завершена в `task/022-duplicate-candidate-core` от exact стартового
-  SHA `e5423f0550b1469308ee1e254844c0d21bed638f`; ветка намеренно не слита в
-  `main` и не опубликована.
+- TASK-001…TASK-022 слиты в `main` отдельными merge-коммитами.
+- Короткоживущая ветка `task/022-duplicate-candidate-core` сохраняет исходный
+  атомарный implementation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
