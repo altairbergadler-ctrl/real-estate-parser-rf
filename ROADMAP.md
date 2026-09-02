@@ -83,9 +83,13 @@
   Принять exact generation/current binding, separate policy identities,
   zero-call preflight, one-call-per-candidate composition и atomic downstream
   conflicts без partial outcomes, storage, external boundaries или
-  physical-property semantics. Завершено в
-  `task/024-duplicate-assessment-batch-design`, не слито в `main`.
-- TASK-025 — реализовать neutral frozen/slots batch-assessment contracts и pure deterministic composition по ADR 0009 для exact DuplicateCandidateGenerationResult/current AvailableObservation binding, без storage, JSON, CLI, real data или изменения candidate/assessment policies. Следующая рекомендуемая малая задача; не начата.
+  physical-property semantics. Завершено и слито в `main`.
+- **TASK-025 — neutral frozen/slots duplicate-candidate assessment batch.**
+  Реализовать exact generation/current binding, separate policy identities,
+  zero-call preflight, one-call-per-candidate composition и atomic full
+  downstream conflict pass без storage, external boundaries или изменения
+  candidate/assessment policies. Завершено в
+  `task/025-duplicate-assessment-batch-core`, не слито в `main`.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный

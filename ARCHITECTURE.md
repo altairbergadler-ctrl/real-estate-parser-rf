@@ -189,6 +189,18 @@ new-key той же reference различаются structural conflicts. Prefl
 blocking/generation, не превращает routing matches в evidence и не вводит
 storage, physical property, merge, cluster или transitive closure.
 
+TASK-025 реализует эту composition отдельным neutral core-модулем, зависящим
+только от public contracts TASK-019/022. Frozen/slots batch identity сохраняет
+exact generation identity и отдельную assessment policy version, а complete
+success — full generation result, full assessment policy и ordered exact item
+assessments. Phase-gated preflight валидирует весь current context и candidate
+binding до первого call. Затем linear reference lookup передаёт existing pair
+operation exact full available sides ровно один раз на supplied candidate;
+любой downstream conflict оставляет только canonical atomic failure после
+полного pure pass. Модуль не повторяет generation, не вводит storage/I/O или
+side-effecting execution и не создаёт physical property либо transitive
+relation.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
