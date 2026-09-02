@@ -104,5 +104,4 @@
 - [TASK-028](TASK-028.md) — design/research контракт ограниченного read-only
   пилота ЦИАН со статусом `CONDITIONAL_GO`: live access запрещён до письменного
   public-listings permission, official route, method-specific quota,
-  PII-safe fields и retention/deletion evidence; завершено в рабочей ветке,
-  не слито в `main`.
+  PII-safe fields и retention/deletion evidence; завершено и слито в `main`.

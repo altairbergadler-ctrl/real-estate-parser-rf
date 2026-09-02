@@ -111,7 +111,7 @@
   rate limits, минимальный набор данных, обработку блокировок и персональных
   данных, stop conditions и доказательства соблюдения правил. Без
   scraper/source adapter и без сбора real data. Завершено для ЦИАН как
-  `CONDITIONAL_GO` в отдельной ветке: live access запрещён до письменного
+  `CONDITIONAL_GO` и слито в `main`: live access запрещён до письменного
   разрешения на public listings, documented official API/outbound feed,
   method-specific quota, PII-safe fields и retention/deletion условий.
 - **TASK-029 — offline adapter ЦИАН по разрешённому примеру.** После снятия

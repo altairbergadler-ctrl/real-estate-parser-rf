@@ -12,9 +12,7 @@ API/outbound feed с method-specific quota, PII-safe fields и retention terms.
 
 ## Состояние основной ветки
 
-- TASK-001…TASK-027 слиты в `main` отдельными merge-коммитами.
-- TASK-028 завершена одним design-only результатом в
-  `task/028-cian-read-only-pilot-contract`, но намеренно не слита в `main`.
+- TASK-001…TASK-028 слиты в `main` отдельными merge-коммитами.
 - Короткоживущая ветка `task/023-duplicate-blocking-coverage` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
 - Короткоживущая ветка `task/024-duplicate-assessment-batch-design` сохраняет
@@ -25,6 +23,8 @@ API/outbound feed с method-specific quota, PII-safe fields и retention terms.
   исходный атомарный documentation commit после безопасной интеграции.
 - Короткоживущая ветка `task/027-persistence-ports-in-memory` сохраняет
   исходный атомарный implementation commit после безопасной интеграции.
+- Короткоживущая ветка `task/028-cian-read-only-pilot-contract` сохраняет
+  исходный атомарный documentation commit после безопасной интеграции.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
