@@ -52,18 +52,22 @@
 - **TASK-018 — доказательная модель возможных дублей публикаций.** Принять
   объяснимые положительные и отрицательные основания возможного совпадения,
   статус ручной проверки и границы неопределённости без программной
-  реализации, physical-property merge, storage или AI. Завершено в task-ветке,
-  готово к review/merge.
+  реализации, physical-property merge, storage или AI. Завершено и слито в
+  `main`.
 - **TASK-019 — pure duplicate-pair assessment и manual-review types.**
   Реализовать neutral frozen/slots duplicate-pair assessment, evidence и
   manual-review types и чистую симметричную оценку одной пары по ADR 0006, без
-  batch/clustering, storage, JSON, CLI и изменений первого среза. Следующая
-  рекомендуемая малая задача; не начата.
+  batch/clustering, storage, JSON, CLI и изменений первого среза. Завершено в
+  task-ветке, готово к review/merge.
+- **TASK-020 — reviewed control set и pure duplicate-policy quality metrics.**
+  Принять контракт полностью вымышленного reviewed control set и реализовать
+  pure метрики coverage, candidate/review load и precision/recall только при
+  достаточных labels, без real data, storage, JSON, CLI или изменения policy.
+  Следующая рекомендуемая малая задача; не начата.
 
 - Добавить версионируемые правила нормализации.
 - Позднее сохранить и использовать историю наблюдений через отдельно выбранный
   infrastructure adapter.
-- Ввести метрики качества и контрольные наборы данных.
 
 ## Этап 4. Источники и эксплуатационный контур
 

@@ -122,10 +122,22 @@ pairwise relation транзитивной. Точный контракт при
 [ADR 0006](docs/decisions/0006-publication-duplicate-evidence.md) и
 [спецификации duplicate evidence](docs/design/PUBLICATION-DUPLICATE-EVIDENCE.md).
 
+TASK-019 реализует этот контракт одним нейтральным pure-модулем. Canonical
+`PublicationPair`, точные observation keys и версия policy образуют
+структурную identity; полные field outcomes и provenance сохраняются в
+policy-ordered evidence либо non-comparison. Чистая симметричная операция
+оценивает только две available observations, а unavailable side возвращает
+отдельный `PairNotAssessed` без categorical outcome. `publication-duplicate-policy@1`
+строго применяет четыре правила и консервативную decision table без score,
+probability или tolerance. Current/stale context, explicit assessment
+supersession и отдельные immutable manual-review revisions также не создают
+physical property, merge, cluster или transitive relation.
+
 В текущий объём по-прежнему не входят запись JSON на диск, постоянное хранение,
-repository adapter, программная реализация duplicate assessment, база данных, API,
+repository adapter, batch pair generation, clustering, база данных, API,
 интерфейс, парсеры реальных площадок, Docker, ИИ, OpenClaw, Telegram и
-публикация удалённого репозитория. Выбор Python-базиса не является выбором всех
+публикация удалённого репозитория. Quality control set и метрики duplicate
+policy пока также отсутствуют. Выбор Python-базиса не является выбором всех
 будущих инфраструктурных компонентов: они добавляются только по подтверждённой
 потребности. Соблюдение правовых требований, условий площадок, ограничений на
 сбор и хранение данных будет конкретизировано до реализации реальных источников.
