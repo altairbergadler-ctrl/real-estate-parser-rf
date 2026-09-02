@@ -59,5 +59,9 @@
   partial state или storage; завершено и слито в `main`.
 - [TASK-018](TASK-018.md) — доказательная симметричная модель pairwise
   duplicate assessment, supporting/contradicting evidence и отдельной manual
-  review без physical-property merge, storage или AI; завершено в task-ветке,
-  готово к review/merge.
+  review без physical-property merge, storage или AI; завершено и слито в
+  `main`.
+- [TASK-019](TASK-019.md) — neutral frozen/slots duplicate-pair assessment,
+  policy-ordered evidence/non-comparison и отдельная pure manual review с
+  revision semantics без batch/clustering, storage или external boundary;
+  завершено в task-ветке, готово к review/merge.

@@ -2,18 +2,19 @@
 
 ## Завершённая задача
 
-TASK-018 — design-only доказательная модель оценки двух разных source
-publications как возможных дублей. Неупорядоченная pair identity канонически
-задаётся двумя `PublicationRef`, assessment привязана к точным
-`AvailableObservation` и версии policy, supporting/contradicting evidence
-сохраняются одновременно, а manual review остаётся отдельной immutable
-revision без merge, clustering или утверждения физического объекта.
+TASK-019 — neutral pure duplicate-pair assessment и manual review. Один
+frozen/slots core-модуль канонически оценивает ровно две разные source
+publications по точным observations и `publication-duplicate-policy@1`,
+сохраняет ordered evidence/non-comparisons с полным provenance и возвращает
+только conservative categorical hypothesis. Separate manual review проверяет
+supplied finding references и immutable revision chain без merge, clustering,
+storage или утверждения физического объекта.
 
 ## Состояние основной ветки
 
 - TASK-001…TASK-018 слиты в `main` отдельными merge-коммитами.
-- Короткоживущая ветка `task/018-duplicate-evidence-model` сохраняет исходный
-  атомарный documentation commit после безопасной интеграции.
+- TASK-019 завершена в `task/019-duplicate-pair-assessment`, готова к
+  review/merge и намеренно не слита в `main`.
 - Удалённый репозиторий не настроен и не требуется в текущем объёме.
 
 Текущий SHA, активную ветку, факт интеграции и чистоту дерева следует подтверждать
@@ -210,12 +211,30 @@ revision без merge, clustering или утверждения физическ
   stale inputs, present provenance, missing/unsupported, mixed evidence,
   insufficient input, same/cross-source, unavailable, все review outcomes,
   supersession conflicts и non-transitivity.
+- Нейтральные frozen/slots `PublicationPair`, `DuplicateAssessmentIdentity`,
+  `DuplicateFieldSnapshot`, evidence/non-comparison, policy, result/conflict и
+  manual-review types с tuple-only collections и safe opaque codes.
+- Immutable `PUBLICATION_DUPLICATE_POLICY_V1` с точным порядком rules
+  `total_area`, `rooms`, exact `location_text`, `price_amount + currency` и
+  categorical strengths без score/probability/tolerance.
+- Чистая полностью симметричная `assess_publication_pair`: same reference даёт
+  stable conflict, unavailable side — `PairNotAssessed`, две available sides —
+  complete assessment с exact decision table ADR 0006.
+- Полные canonical field snapshots повторно используют outcome/provenance
+  TASK-016; `Missing` не получает raw, `Unsupported` сохраняет reason и raw,
+  neutral mismatch не становится contradicting evidence.
+- Pure current/stale check, explicit `AssessmentSupersession` и
+  `create_manual_review` с supplied identity/time, exact finding references,
+  strict revision/supersedes/replay semantics и atomic failures.
+- 93 fully fictional прямых unit-теста покрывают rules, symmetry, decision
+  table, unavailable, identity/current/supersession, manual reviews,
+  immutability, запрещённую merge/cluster поверхность и отсутствие I/O.
 
 ## Что намеренно не реализовано
 
 - Запись output на диск.
-- Постоянное хранилище, repository adapter, expected revision implementation и
-  программная duplicate assessment.
+- Постоянное хранилище, repository adapter, expected revision implementation,
+  batch pair generation и сохранение duplicate assessments/reviews.
 - Физический объект недвижимости, merge/clustering, база данных, API, HTTP,
   HTML и реальные площадки.
 - Нестандартные сигналы, ИИ, уведомления, UI, OpenClaw и Telegram.
@@ -224,10 +243,10 @@ revision без merge, clustering или утверждения физическ
 
 ## Рекомендуемая следующая задача
 
-TASK-019 — реализовать neutral frozen/slots duplicate-pair assessment,
-evidence и manual-review types и чистую симметричную оценку одной пары по ADR
-0006, без batch/clustering, storage, JSON, CLI и изменений первого среза. Это
-ровно следующий малый шаг; он не начат.
+TASK-020 — принять контракт полностью вымышленного reviewed control set и
+реализовать pure метрики качества duplicate policy: coverage, candidate/review
+load и precision/recall только при достаточных labels, без real data, storage,
+JSON, CLI или изменения policy. Это ровно следующий малый шаг; он не начат.
 
 ## Открытые архитектурные вопросы
 

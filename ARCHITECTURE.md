@@ -119,6 +119,18 @@ unavailable input не становятся отрицательным факт�
 отдельной immutable revision. Ни автоматический, ни human outcome не создаёт
 physical property, не объединяет histories и не допускает transitive cluster.
 
+TASK-019 реализует эту модель отдельным нейтральным core-модулем, который
+зависит только от готовых normalization и publication-observation contracts.
+`assess_publication_pair` канонизирует две publications вместе с полными
+observations, выполняет ровно четыре rules `publication-duplicate-policy@1` и
+возвращает immutable assessment, `PairNotAssessed` либо atomic conflicts.
+Field snapshots повторно используют canonical outcome и provenance типов
+TASK-016; supporting, contradicting и non-comparable findings остаются
+раздельными и policy-ordered. Current/stale вычисляется только из явно
+переданного context, supersession является отдельной immutable link, а
+`create_manual_review` валидирует supplied identity/time, exact finding
+references и revision chain без часов, UUID, I/O, storage или hidden state.
+
 ## Модули и ответственность
 
 - **Источники** получают сырые объявления и метаданные происхождения. Каждый источник изолирует особенности площадки за общим входным контрактом.
